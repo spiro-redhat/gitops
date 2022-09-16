@@ -8,7 +8,7 @@ spec:
   text: Red Hat Developer Blog - Kubernetes
   applicationMenu:
     section: Kubernetes Blogs
-    imageURL: https://i.ibb.co/pZ0Lxdb/Logo-Red-Hat-Hat-Color-RGB.png
+    imageURL: https://redhat-public.s3.eu-west-2.amazonaws.com/flag24.png
 
 
 #  https://redhat-public.s3.eu-west-2.amazonaws.com/flag24.png
