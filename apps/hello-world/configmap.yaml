@@ -5,15 +5,13 @@ metadata:
 data:
   nginx.conf: '
 pid /tmp/nginx.pid; 
-events {
-}
+events {}
 http {
    server {
-       listen 8080;
+      listen 8080;
       location / {
-           default_type "text/html";
            return 200 "Hello world";
-       }
+      }
    }
 }
 '
