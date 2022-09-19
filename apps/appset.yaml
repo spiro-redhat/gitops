@@ -17,7 +17,7 @@ spec:
       project: default
       source:
         repoURL: https://github.com/spiro-redhat/gitops.git
-        targetRevision: HEAD
+        targetRevision: main
         path: '{{path}}'
       destination:
         name: in-cluster
