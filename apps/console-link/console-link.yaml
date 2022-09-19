@@ -7,7 +7,7 @@ spec:
   location: ApplicationMenu
   text: Red Hat Developer Blog - Kubernetes
   applicationMenu:
-    section: Scottish Blogs
+    section: Kubernetes Blogs
     imageURL: https://redhat-public.s3.eu-west-2.amazonaws.com/flag24.png
 
 
