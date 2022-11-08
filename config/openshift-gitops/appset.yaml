@@ -24,6 +24,5 @@ spec:
         namespace: '{{path.basename}}'
       syncPolicy:
         automated: {}
-        preserveResourcesOnDeletion: false
         syncOptions:
           - CreateNamespace=true
