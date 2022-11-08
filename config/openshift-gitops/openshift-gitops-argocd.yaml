@@ -70,7 +70,7 @@ spec:
     policy: |
       g, system:cluster-admins, role:admin
       g, cluster-admins, role:admin
-      g, lab-manager, role:admin
+      g, argo-admins, role:admin
     scopes: '[groups]'
   repo:
     resources:
