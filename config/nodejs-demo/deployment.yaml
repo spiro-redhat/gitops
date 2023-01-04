@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nodejs-app
+  name: nodejs-demo
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: nodejs-app
+      app: nodejs-demo
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: nodejs-app
+        app: nodejs-demo
     spec:
       containers:
         - image: quay.io/spiro-redhat/node.js:latest@sha256:47dedb8e41392d752310d738d01123fce5cd1a575a16e138c6ef55e1ad79d3a5
