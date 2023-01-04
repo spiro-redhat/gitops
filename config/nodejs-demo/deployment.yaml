@@ -17,6 +17,19 @@ spec:
       containers:
         - image: quay.io/spiro-redhat/node.js:latest
           name: nodejs
+          env:
+            - name: TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: creds
+                  key: token
+          resources:
+            requests:
+              memory: "32Mi"
+              cpu: "250m"
+            limits: 
+              memory: "64Mi"
+              cpu: "250m"
           ports:
             - containerPort: 8080
               name: web
@@ -40,12 +53,7 @@ spec:
             timeoutSeconds: 1
             successThreshold: 1
             failureThreshold: 3
-      env:
-        - name: TOKEN
-          valueFrom:
-            secretKeyRef:
-              name: creds
-              key: token
+     
 
       volumes:
       - name: config-vol
