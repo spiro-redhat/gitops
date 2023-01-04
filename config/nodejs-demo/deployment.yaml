@@ -19,7 +19,7 @@ spec:
           name: nodejs
           ports:
             - containerPort: 8080
-            name: web
+              name: web
           volumeMounts:
             - name: config-vol
               mountPath: /usr/src/app/
