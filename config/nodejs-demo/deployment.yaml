@@ -15,7 +15,7 @@ spec:
         app: nodejs-app
     spec:
       containers:
-        - image: quay.io/spiro-redhat/node.js:latest
+        - image: quay.io/spiro-redhat/node.js:latest@sha256:47dedb8e41392d752310d738d01123fce5cd1a575a16e138c6ef55e1ad79d3a5
           name: nodejs
           env:
             - name: TOKEN
@@ -33,9 +33,6 @@ spec:
           ports:
             - containerPort: 8080
               name: web
-          volumeMounts:
-            - name: config-vol
-              mountPath: /usr/src/app/
           livenessProbe:
             httpGet:
               path: /
@@ -55,11 +52,4 @@ spec:
             failureThreshold: 3
      
 
-      volumes:
-      - name: config-vol
-        configMap:
-          name: server-js
-          items:
-            - key: server.js
-              path: server.js
-              
+     
