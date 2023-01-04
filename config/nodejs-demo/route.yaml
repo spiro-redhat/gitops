@@ -16,7 +16,7 @@ metadata:
   name: nodejs-demo
 spec:
   port:
-    targetPort: 8080
+    targetPort: 80
   to:
     kind: Service
     name: nodejs-demo
