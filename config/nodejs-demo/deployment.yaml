@@ -40,18 +40,18 @@ spec:
             timeoutSeconds: 1
             successThreshold: 1
             failureThreshold: 3
-	  env:
-            - name: TOKEN
-            valueFrom:
-              secretKeyRef:
-               name: creds
-               key: token
+      env:
+        - name: TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: creds
+              key: token
 
       volumes:
       - name: config-vol
-          configMap:
-            name: server-js
-            items:
-              - key: server.js
-                path: server.js
+        configMap:
+          name: server-js
+          items:
+            - key: server.js
+              path: server.js
               
