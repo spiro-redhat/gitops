@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodejs-app
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: nodejs-app
+    spec:
+      containers:
+      - image: quay.io/spiro-redhat/node.js:latest
+        name: nodejs
+        ports:
+        - containerPort: 8080
+          name: web
+        volumeMounts:
+          - name: config-vol
+            mountPath: /usr/src/app/
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 2
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 2
+          periodSeconds: 10
+          timeoutSeconds: 1
+          successThreshold: 1
+          failureThreshold: 3
+      env: 
+        - name: TOKEN
+          valueFrom:
+            secretKeyRef:
+  	       name: creds
+	       key: token
+      volumes:
+        - name: config-vol
+          configMap:
+            name: server-js
+            items:
+              - key: server.js
+                path: server.js
+              
