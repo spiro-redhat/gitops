@@ -1,4 +1,7 @@
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: server-js
 data:
   server.js: |
     'use strict';
@@ -20,6 +23,3 @@ data:
     app.listen(PORT, HOST, () => {
       console.log(`Running on http://${HOST}:${PORT} with TOKEN`);
     });
-kind: ConfigMap
-metadata:
-  name: server-js
