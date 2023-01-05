@@ -18,7 +18,7 @@ sudo install -m 755 kubeseal /usr/local/bin/kubeseal
 Where `release-tag` is the version of the kubeseal release you want to use. For example: `v0.18.0`.
 https://github.com/bitnami-labs/sealed-secrets/tags
 
-The Certificate is used to seal a normal `Secret` into a `SealedSecret`. It can be public. 
+The Certificate is used to seal a kubernetes `Secret` into a `SealedSecret`. It can be public. 
 
 The Key must always be kept secure; It decrypts the `SealedSecret` into a regular Kubernetes `Secret`. The `Secret` is managed by the `SealedSecret`. If you need to change the `Secret`, simply update the `SealedSecret` and the change propogates to the `Secret`. You can think of the relationship between a `SealedSecret` and a `Secret` in similar terms as the relationship between a `Deployment` and a `Pod`.  
 
@@ -104,6 +104,7 @@ The `Secret` is now managed via the `SealedSecret`. If we need to change the `Se
 
 
 
+Permissions 
 
 
 
