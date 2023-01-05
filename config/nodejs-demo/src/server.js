@@ -11,7 +11,7 @@ const TOKEN = process.env.TOKEN || "No idea";
 const app = express();
 
 app.get('/', (req, res) => {
-  res.send('Your token is ' + TOKEN);
+  res.send('And the token is.....' + TOKEN);
 });
 
 app.listen(PORT, HOST, () => {

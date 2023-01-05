@@ -17,6 +17,13 @@ spec:
       containers:
       - image: nginxinc/nginx-unprivileged:latest
         name: nginx
+        resources:
+          requests:
+            memory: "32Mi"
+            cpu: "250m"
+          limits: 
+            memory: "64Mi"
+            cpu: "250m"
         ports:
         - containerPort: 8080
           name: web
