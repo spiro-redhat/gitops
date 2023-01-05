@@ -1,4 +1,4 @@
-To create a sealed-secret,first create a regular secret (call it secret.yaml): 
+To create a `SealedSecret` ,first create a regular `Secret` (name the file secret.yaml): 
 
 ```yaml 
 ---
@@ -38,7 +38,7 @@ kubseal < secret.yaml \
 rm secret.yaml 
 ```
 
-Sometimes you need to decrypt the secret yourself on the CLI. If this is the case, try this: 
+Sometimes you need to decrypt the `Secret` yourself on the CLI. If this is the case, try this: 
 
 ```bash
 oc get secret -n sealed-secrets -l sealedsecrets.bitnami.com/sealed-secrets-key -o yaml >/tmp/ss-cert
@@ -51,13 +51,13 @@ rm /tmp/ss-cert
 
 Backing up and restoring your keys
 
-The private key is stored as a secret owned by the sealed-secrets-controller. There are no backdoors, without the private key you cannot decrypt to the SealedSecrets. If you cannot get to the SealedSecret with the private key and if you are unable to access the Secrets within the cluster, then you will need to generate new keys for everything and seal them with a new certificate key pair.
+The private key is stored as a `Secret` owned by the sealed-secrets-controller. There are no backdoors, without the private key you cannot decrypt to the `SealedSecrets`. If you cannot get to the `SealedSecret` with the private key and if you are unable to access the `Secrets` within the cluster, then you will need to generate new keys for everything and seal them with a new certificate key pair.
 
 The backup: 
 ```bash 
 oc get secret -n sealed-secrets sealed-secrets-key<ID> -o yaml >sealed-secret-keep-me-omg-safe.key
 ``` 
-To restore from a backup after some disaster, just put that secret back before starting the controller - or if the controller was already started, replace the newly-created secret and restart the controller:
+To restore from a backup after some disaster, just put that secret back before starting the controller - or if the controller was already started, replace the newly-created `Secret` and restart the controller:
 
 ```bash 
 # edit the backup key and switch the name to reflect the new name of the key 
