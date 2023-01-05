@@ -1,11 +1,27 @@
 Sealed Secrets from Bitnami is predicated on the problem being able to securely store secrets in public repositories without exposing their contents (`Secrets` in Kubernetes are base64 encoded strings and are not secure).
 
-`SealedSecrets` encrypts `Secrets` which is safe to store anywhere, including public repositories. The `SealedSecret` can be decrypted only by the controller running in the target cluster and nobody else (not even the original author) is able to obtain the `Secret` from the `SealedSecret`.
+`SealedSecrets` encrypts `Secrets` that are safe to store anywhere, including public repositories. The `SealedSecret` can be decrypted only by the controller running in the target cluster and nobody else  is able to obtain the `Secret` from the `SealedSecret`.
+
+![](img/sealed-secret-components.png?raw=true "The SealedSecret controller generates the assymetric key pair for encryption and decryption") 
+
+Two components make up the `SealedSecret` controller. 
+* kubeseal - a cli tool that must be installed locally
+* sealed secret controller - deployed to OpenShift. On first deployment the controller will generate a Certificate and Private Key. 
+
+
+The certificate is used to seal a normal `Secret` into a `SealedSecret`. It can be public. 
+
+The key is used to decrypt the `SealedSecret` into a regular Kubernetes `Secret`. The `Secret` is managed by the `SealedSecret`. If you need to change the `Secret`, simply update the `SealedSecret` and the change propogate to the `Secret`. You can think of the relationship between a `SealedSecret` and a `Secret` in similar terms as the relationship between a `Deployment` and a `Pod`.  The key must be kept secure. 
+
+
+​![](img/sealed-secret-flow.png?raw=true "Title") 
+
+When a `SealedSecret` is applied, the controller detects it and attempts to decrypt it into a `Secret` that apps can use. 
+
 
 ![](img/sealed-secret-architecture.png?raw=true "Title") 
-![](img/sealed-secret-components.png?raw=true "Title") 
-![](img/sealed-secret-flow.png?raw=true "Title") 
 
+​The components that are deployed with the sealed-secrets-controller. 
 
 
 To create a `SealedSecret` ,first create a regular `Secret` (name the file secret.yaml): 
