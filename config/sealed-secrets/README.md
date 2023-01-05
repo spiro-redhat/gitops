@@ -60,6 +60,10 @@ oc get secret -n sealed-secrets sealed-secrets-key<ID> -o yaml >sealed-secret-ke
 To restore from a backup after some disaster, just put that secret back before starting the controller - or if the controller was already started, replace the newly-created secret and restart the controller:
 
 ```bash 
-oc replace secret -n sealed-secrets sealed-secrets-key<ID> -f sealed-secret-keep-me-omg-safe.key
+# edit the backup key and switch the name to reflect the new name of the key 
+oc delete secret -n sealed-secrets sealed-secrets-key<ID> 
+oc create secret -n sealed-secrets -f sealed-secret-keep-me-omg-safe.key 
 oc delete pod -n sealed-secrets -l name=sealed-secrets-controller
+# the old key with the name of the new key should be installed and operational. 
+# existing sealed secrets can now be used 
 ```
