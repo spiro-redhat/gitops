@@ -5,13 +5,13 @@ const express = require('express');
 // Constants
 const PORT = 8080;
 const HOST = '0.0.0.0';
-const TOKEN = process.env.TOKEN || "No idea";
+const TOKEN = process.env.TOKEN || "No Tokens here!";
 
 // App
 const app = express();
 
 app.get('/', (req, res) => {
-  res.send('And the token is.....' + TOKEN);
+  res.send(TOKEN);
 });
 
 app.listen(PORT, HOST, () => {
