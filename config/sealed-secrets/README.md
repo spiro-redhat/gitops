@@ -1,3 +1,13 @@
+Sealed Secrets from Bitnami is predicated on the problem being able to securely store secrets in public repositories without exposing their contents (`Secrets` in Kubernetes are base64 encoded strings and are not secure).
+
+`SealedSecrets` encrypts `Secrets` which is safe to store anywhere, including public repositories. The `SealedSecret` can be decrypted only by the controller running in the target cluster and nobody else (not even the original author) is able to obtain the `Secret` from the `SealedSecret`.
+
+![](img/sealed-secret-architecture.png?raw=true "Title") 
+![](img/sealed-secret-components.png?raw=true "Title") 
+![](img/sealed-secret-flow.png?raw=true "Title") 
+
+
+
 To create a `SealedSecret` ,first create a regular `Secret` (name the file secret.yaml): 
 
 ```yaml 
