@@ -8,7 +8,7 @@ metadata:
   name: creds
 type: Opaque
 data: 
-  token: WU9VUi1TRUNSRVQtVE9LRU4tSVMtTUUtTVdBSEFIQUhBSEE=
+  token: VEhFLVNFQ1JFVC1UT0tFTi1JUy1NRS1NV0hBSEFIQUhBSA==
 ```
 
 You will need to extract the public key from the sealed secret controller 
