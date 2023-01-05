@@ -37,7 +37,7 @@ oc get secrets sealed-secret-<id> -n sealed-secrets -o yaml
 
 
 
-​![](img/sealed-secret-flow.png?raw=true "Title") 
+
 
 When a `SealedSecret` is applied, the controller detects it and attempts to decrypt it into a `Secret` that apps can use. 
 
@@ -66,7 +66,10 @@ kubeseal --controller-namespace sealed-secrets < secret.yaml -o yaml > sealed-se
 A snippet: 
 
 ```bash
-echo -n bar | oc create secret generic mysecret --dry-run=client --from-file=/dev/stdin -o yaml | kubeseal --controller-namespace sealed-secrets -o yaml  > sealed-secret.yaml
+echo -n bar | oc create secret generic mysecret --dry-run=client \
+		--from-file=/dev/stdin -o yaml | \
+		kubeseal --controller-namespace sealed-secrets \
+		-o yaml  > sealed-secret.yaml
 ```
 
 From stored file: 
@@ -102,7 +105,7 @@ oc get secrets
 The `Secret` is now managed via the `SealedSecret`. If we need to change the `Secret` we must update the `SealedSecret`. The sealed-secrets-controller will update our `Secret` as well. 
 
 
-
+​![](img/sealed-secret-flow.png?raw=true "Title") 
 
 Permissions 
 
