@@ -49,3 +49,17 @@ kubeseal --recovery-unseal --recovery-private-key /tmp/ss-cert < config-bundle-s
 rm /tmp/ss-cert 
 ``` 
 
+Backing up and restoring your keys
+
+The private key is stored as a secret owned by the sealed-secrets-controller. There are no backdoors, without the private key you cannot decrypt to the SealedSecrets. If you cannot get to the SealedSecret with the private key and if you are unable to access the Secrets within the cluster, then you will need to generate new keys for everything and seal them with a new certificate key pair.
+
+The backup: 
+```bash 
+oc get secret -n sealed-secrets sealed-secrets-key<ID> -o yaml >sealed-secret-keep-me-omg-safe.key
+``` 
+To restore from a backup after some disaster, just put that secret back before starting the controller - or if the controller was already started, replace the newly-created secret and restart the controller:
+
+```bash 
+oc replace secret -n sealed-secrets sealed-secrets-key<ID> -f sealed-secret-keep-me-omg-safe.key
+oc delete pod -n sealed-secrets -l name=sealed-secrets-controller
+```
