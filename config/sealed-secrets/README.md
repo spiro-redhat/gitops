@@ -19,7 +19,7 @@ kubseal --controller-namespace sealed-secrets \
 	--fetch-cert > cert.pem  
 ```
 
-Next we seal our secret to create a sealed secret 
+Next we seal our `Secret` to create a `SealedSecret` 
 
 ```bash  
 kubseal < secret.yaml \
