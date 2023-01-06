@@ -93,7 +93,7 @@ kubseal < secret.yaml \
 	--cert cert.pem \
 	-o yaml > sealed-secret.yaml 
 ```
-Send the SealedSecret to the server. 
+Send the SealedSecret to the cluster. 
 ```bash
 oc create -f sealed-secret.yaml  
 ```
@@ -107,20 +107,53 @@ The `Secret` is now managed via the `SealedSecret`. If we need to change the `Se
 
 ​![](img/sealed-secret-flow.png?raw=true "Title") 
 
-Permissions 
+Scopes within `SealedSecrets` deal with the following two problems around access and permissions. 
+
+Given that `SealedSecrets` are designed to be safe to be looked at without having access to  the secret: 
+
+* Users should not be able to read a `SealedSecret`  that is intended for a specific NameSpace. 
+* Users should not be able to push a `SealedSecret` into a NameSpace where they can read secrets from. 
+
+Scopes can therefore be applied in the following ways. 
+
+* Strict mode: Ensure that the Namespace and Name of the secret cannot be changed. 
+	SealedSecrets uses the Namespace and Name as part of the encryption process. If any of those change, the decryption process fails. 
+
+* Namespace mode: Ensure that the Namespace cannot be changed. 
+	SealedSecrets uses the Namespace as part of the encrytption process. If that changes, the decryption process failes. 
+
+* Clusterwide mode 
+	SealedSecrets only uses the private key. You can change the  Name and Namespace of the secret. 
 
 
+Using the above information we can now add a flag to ensure `strict` mode when `kubseal` seals our secret. 
 
 ```bash
+ echo -n bar | oc create secret generic mysecret --dry-run=client \
+		--from-file=/dev/stdin -o yaml | \
+		kubeseal --controller-namespace sealed-secrets \
+		--scope strict 
+		-n <YOUR_NAMESPACE>
+		-o yaml  > sealed-secret.yaml
+
+# strict scope is the default option so omitting `--scope` will enfore strict mode. 
+
 # Other options include: 
 # --scope strict           Enforces the sealed secret to have the same name and namespace as the child object, the secret. This is the default behaviour.
 # --scope namespace-wide   Change the name but keep the namespace  
 # --scope cluster-wide     Change the name or the namespace 
 
-
-# remove the original secret and keep it out of source control 
-rm secret.yaml 
 ```
+
+
+
+
+
+Encrypted `Sealed`
+`kubeseal` does not, by desgin,  perform any authentication. Anyone may create a `SealedSecret` containing any `Secret`. It is up to existing config and/or RBAC set up to ensure that the intended `SealedSecret` is uploaded to the cluster. 
+
+
+
 
 Sometimes you need to decrypt the `Secret` yourself on the CLI. If this is the case, try this: 
 
@@ -139,14 +172,13 @@ The private key is stored as a `Secret` owned by the sealed-secrets-controller. 
 
 The backup: 
 ```bash 
-oc get secret -n sealed-secrets sealed-secrets-key<ID> -o yaml >sealed-secret-keep-me-omg-safe.key
+oc get secret -n sealed-secrets -l sealedsecrets.bitnami.com/sealed-secrets-key -o yaml >main.key
+# This file contains the controller's public and private key and should be kept omg-safe! 
 ``` 
 To restore from a backup after some disaster, just put that secret back before starting the controller - or if the controller was already started, replace the newly-created `Secret` and restart the controller:
 
 ```bash 
-# edit the backup key and switch the name to reflect the new name of the key 
-oc delete secret -n sealed-secrets sealed-secrets-key<ID> 
-oc create secret -n sealed-secrets -f sealed-secret-keep-me-omg-safe.key 
+oc apply -n sealed-secrets -f main.key 
 oc delete pod -n sealed-secrets -l name=sealed-secrets-controller
 # the old key with the name of the new key should be installed and operational. 
 # existing sealed secrets can now be used 
