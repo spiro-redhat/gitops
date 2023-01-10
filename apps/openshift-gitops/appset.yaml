@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: appset
+  namespace: openshift-gitops
+spec:
+  generators:
+  - git:
+      repoURL: https://github.com/spiro-redhat/gitops.git
+      revision: main
+      directories:
+      - path: apps/*
+  template:
+    metadata:
+      name: '{{path.basename}}'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/spiro-redhat/gitops.git
+        targetRevision: main
+        path: '{{path}}'
+      destination:
+        name: in-cluster
+        namespace: '{{path.basename}}'
+      syncPolicy:
+        automated: {}
+        syncOptions:
+          - CreateNamespace=true
