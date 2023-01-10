@@ -18,7 +18,7 @@ spec:
       source:
         repoURL: https://github.com/spiro-redhat/gitops.git
         targetRevision: main
-        path: '{{path}}'
+        path: '{{path}}/config'
       destination:
         name: in-cluster
         namespace: '{{path.basename}}'
