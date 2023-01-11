@@ -1,0 +1,61 @@
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: cluster-logging
+  namespace: openshift-logging 
+spec:
+  targetNamespaces:
+  - openshift-logging 
+---
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: cluster-logging
+  namespace: openshift-logging 
+spec:
+  channel: "stable" 
+  name: cluster-logging
+  source: redhat-operators 
+  sourceNamespace: openshift-marketplace
+---
+apiVersion: "logging.openshift.io/v1"
+kind: "ClusterLogging"
+metadata:
+  name: "instance"
+  namespace: "openshift-logging"
+spec:
+  managementState: "Managed"
+  logStore:
+    type: "elasticsearch"
+    retentionPolicy:
+      application:
+        maxAge: 7d
+      infra:
+        maxAge: 7d
+      audit:
+        maxAge: 7d
+    elasticsearch:
+      nodeCount: 3
+      storage:
+        storageClassName: "gp2"
+        size: 20G
+      resources:
+        limits:
+          memory: "16Gi"
+        requests:
+          memory: "16Gi"
+      proxy:
+        resources:
+          limits:
+            memory: 256Mi
+          requests:
+             memory: 256Mi
+      redundancyPolicy: "SingleRedundancy"
+  visualization:
+    type: "kibana"
+    kibana:
+      replicas: 1
+  collection:
+    logs:
+      type: "fluentd"
+      fluentd: {}
