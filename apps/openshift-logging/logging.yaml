@@ -5,14 +5,14 @@ metadata:
   name: "instance"
   namespace: "openshift-logging"
   labels: 
-      origin: from-gitops
+      origin: gitops
 spec:
   managementState: "Managed"
   logStore:
     type: "elasticsearch"
     retentionPolicy:
       application:
-        maxAge: 7d
+        maxAge: 14d
       infra:
         maxAge: 7d
       audit:
