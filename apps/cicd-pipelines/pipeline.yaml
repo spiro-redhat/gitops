@@ -6,7 +6,7 @@ metadata:
     argocd.argoproj.io/sync-wave: "0"
 spec:
   tasks:
-    - name: hello-world
+    - name: echo-something
       taskRef:
         name: echo
       params:
