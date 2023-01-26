@@ -5,6 +5,8 @@ metadata:
     argocd.argoproj.io/sync-wave: "-10"
   name: echo
 spec:
+  workspaces:
+    - name: cache
   params:
     - name: TERM
       type: string
@@ -16,3 +18,8 @@ spec:
         - echo
       args:
         - $(inputs.params.TERM)
+    - name: redirect
+      image: registry.access.redhat.com/ubi9/ubi
+      script: - 
+         echo $(inputs.params.TERM) > $(workspaces.cache.path)
+      

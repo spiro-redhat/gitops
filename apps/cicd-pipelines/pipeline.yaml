@@ -9,6 +9,9 @@ spec:
     - name: echo-something
       taskRef:
         name: echo
+      workspaces:
+        - name: cache
+          workspace: pipeline-cache
       params:
         - name: TERM
           value: "Hello world"
