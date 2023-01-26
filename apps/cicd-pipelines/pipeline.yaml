@@ -1,0 +1,15 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+annotations:
+  argocd.argoproj.io/sync-wave: "0"
+metadata:
+  name: tutorial-pipeline
+spec:
+  tasks:
+    - name: hello-world
+      taskRef:
+        name: echo
+      params:
+        - name: TERM
+          value: "Hello world"
+        

@@ -1,0 +1,18 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+annotations:
+  argocd.argoproj.io/sync-wave: "-10"
+metadata:
+  name: echo
+spec:
+  params:
+    - name: TERM
+      type: string
+      description: The term to echo
+  steps:
+    - name: echo
+      image: registry.access.redhat.com/ubi9/ubi
+      command:
+        - echo
+      args:
+        - $(inputs.params.TERM)

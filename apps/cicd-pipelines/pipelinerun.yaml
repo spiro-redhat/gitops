@@ -1,0 +1,21 @@
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineRun
+annotations:
+  argocd.argoproj.io/sync-wave: "10"
+metadata:
+  generateName: tutorial-pipelinerun-
+spec:
+  pipelineRef:
+    name: tutorial-pipeline
+  params:
+    - name: TERM
+      value: "Hello world"
+  workspaces:
+    - name: pipeline-cache
+      volumeClaimTemplate:
+          spec:
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: 100Mi
