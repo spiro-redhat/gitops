@@ -1,8 +1,8 @@
 apiVersion: tekton.dev/v1alpha1
 kind: Task
-annotations:
-  argocd.argoproj.io/sync-wave: "-10"
 metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "-10"
   name: echo
 spec:
   params:
