@@ -20,6 +20,6 @@ spec:
         - $(inputs.params.TERM)
     - name: redirect
       image: registry.access.redhat.com/ubi9/ubi
-      script: - 
+      script: |
          echo $(params.TERM) > $(workspaces.cache.path)
       
