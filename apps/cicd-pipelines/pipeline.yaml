@@ -16,5 +16,5 @@ spec:
           workspace: pipeline-cache
       params:
         - name: TERM
-          value: "Hello world"
+          value: "Hello world!"
         
