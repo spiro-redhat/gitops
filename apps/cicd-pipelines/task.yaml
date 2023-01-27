@@ -21,5 +21,5 @@ spec:
     - name: redirect
       image: registry.access.redhat.com/ubi9/ubi
       script: |
-         echo $(params.TERM) > $(workspaces.cache.path)
+         echo $(params.TERM) > $(workspaces.cache.path)/README.md
       
