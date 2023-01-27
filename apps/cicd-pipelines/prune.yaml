@@ -6,6 +6,7 @@ metadata:
     operator.tekton.dev/prune.schedule: "*/3 * * * *"
     ooperator.tekton.dev/prune.resources: "taskrun, pipelinerun"
     operator.tekton.dev/prune.keep-since: "5" 
-    operator.tekton.dev/prune.strategy: "keep-since"
+    operator.tekton.dev/prune.keep: "5" 
+    operator.tekton.dev/prune.strategy: "keep"
     argocd.argoproj.io/sync-wave: "100"
     
