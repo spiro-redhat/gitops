@@ -30,7 +30,7 @@ spec:
     spec:
       serviceAccount: nodejs-demo-vault
       containers:
-        - image: quay.io/spiro-redhat/node.js:latest@sha256:0c5d14e543321a8c40cd4d30df6fe6d76c88e98e261290875565e062e1a712f9
+        - image: quay.io/spiro-redhat/node.js:19@sha256:4e7e9ec74254d11389171398c56a11148661c15e497d7599df5faee07ec49cb2
           name: nodejs-demo
           command: [/vault/secrets/config && node server.js']
           resources:
