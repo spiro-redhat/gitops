@@ -31,9 +31,9 @@ spec:
       containers:
         - image: quay.io/spiro-redhat/node.js:latest@sha256:0c5d14e543321a8c40cd4d30df6fe6d76c88e98e261290875565e062e1a712f9
           name: nodejs-demo
-          command: ['/bin/sh']
+          command: ['/bin/sh', '-c']
           args:
-            ['-c','/vault/secrets/config && node server.js']
+            ['/vault/secrets/config' , 'node server.js']
           resources:
             requests:
               memory: "32Mi"
