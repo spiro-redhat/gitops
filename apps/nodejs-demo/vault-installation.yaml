@@ -1,0 +1,310 @@
+csi:
+  daemonSet:
+    kubeletRootDir: /var/lib/kubelet
+    providersDir: /etc/kubernetes/secrets-store-csi-providers
+    updateStrategy:
+      type: RollingUpdate
+  debug: false
+  enabled: false
+  image:
+    pullPolicy: IfNotPresent
+    repository: hashicorp/vault-csi-provider
+    tag: 1.2.0
+  livenessProbe:
+    failureThreshold: 2
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    successThreshold: 1
+    timeoutSeconds: 3
+  readinessProbe:
+    failureThreshold: 2
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    successThreshold: 1
+    timeoutSeconds: 3
+global:
+  enabled: true
+  openshift: true
+  psp:
+    annotations: >
+      seccomp.security.alpha.kubernetes.io/allowedProfileNames:
+      docker/default,runtime/default
+
+      apparmor.security.beta.kubernetes.io/allowedProfileNames: runtime/default
+
+      seccomp.security.alpha.kubernetes.io/defaultProfileName:  runtime/default
+
+      apparmor.security.beta.kubernetes.io/defaultProfileName:  runtime/default
+    enable: false
+  serverTelemetry:
+    prometheusOperator: false
+  tlsDisable: true
+injector:
+  affinity: |
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: {{ template "vault.name" . }}-agent-injector
+              app.kubernetes.io/instance: "{{ .Release.Name }}"
+              component: webhook
+          topologyKey: kubernetes.io/hostname
+  agentDefaults:
+    cpuLimit: 500m
+    cpuRequest: 250m
+    memLimit: 128Mi
+    memRequest: 64Mi
+    template: map
+    templateConfig:
+      exitOnRetryFailure: true
+  agentImage:
+    repository: registry.connect.redhat.com/hashicorp/vault
+    tag: 1.11.3-ubi
+  authPath: auth/kubernetes
+  certs:
+    certName: tls.crt
+    keyName: tls.key
+  enabled: '-'
+  failurePolicy: Ignore
+  hostNetwork: false
+  image:
+    pullPolicy: IfNotPresent
+    repository: registry.connect.redhat.com/hashicorp/vault-k8s
+    tag: 1.0.0-ubi
+  leaderElector:
+    enabled: true
+  logFormat: standard
+  logLevel: info
+  metrics:
+    enabled: false
+  port: 8080
+  replicas: 1
+  revokeOnShutdown: false
+  webhook:
+    failurePolicy: Ignore
+    matchPolicy: Exact
+    objectSelector: |
+      matchExpressions:
+      - key: app.kubernetes.io/name
+        operator: NotIn
+        values:
+        - {{ template "vault.name" . }}-agent-injector
+    timeoutSeconds: 30
+server:
+  affinity: |
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: {{ template "vault.name" . }}
+              app.kubernetes.io/instance: "{{ .Release.Name }}"
+              component: server
+          topologyKey: kubernetes.io/hostname
+  auditStorage:
+    accessMode: ReadWriteOnce
+    enabled: false
+    mountPath: /vault/audit
+    size: 10Gi
+  authDelegator:
+    enabled: true
+  dataStorage:
+    accessMode: ReadWriteOnce
+    enabled: true
+    mountPath: /vault/data
+    size: 10Gi
+  dev:
+    devRootToken: root
+    enabled: false
+  enabled: '-'
+  enterpriseLicense:
+    secretKey: license
+  ha:
+    config: >
+      ui = true
+
+
+      listener "tcp" {
+        tls_disable = 1
+        address = "[::]:8200"
+        cluster_address = "[::]:8201"
+      }
+
+      storage "consul" {
+        path = "vault"
+        address = "HOST_IP:8500"
+      }
+
+
+      service_registration "kubernetes" {}
+
+
+      # Example configuration for using auto-unseal, using Google Cloud KMS. The
+
+      # GKMS keys must already exist, and the cluster must have a service
+      account
+
+      # that is authorized to access GCP KMS.
+
+      #seal "gcpckms" {
+
+      #   project     = "vault-helm-dev-246514"
+
+      #   region      = "global"
+
+      #   key_ring    = "vault-helm-unseal-kr"
+
+      #   crypto_key  = "vault-helm-unseal-key"
+
+      #}
+
+
+      # Example configuration for enabling Prometheus metrics.
+
+      # If you are using Prometheus Operator you can enable a ServiceMonitor
+      resource below.
+
+      # You may wish to enable unauthenticated metrics in the listener block
+      above.
+
+      #telemetry {
+
+      #  prometheus_retention_time = "30s",
+
+      #  disable_hostname = true
+
+      #}
+    disruptionBudget:
+      enabled: true
+    enabled: false
+    raft:
+      config: |
+        ui = true
+
+        listener "tcp" {
+          tls_disable = 1
+          address = "[::]:8200"
+          cluster_address = "[::]:8201"
+          # Enable unauthenticated metrics access (necessary for Prometheus Operator)
+          #telemetry {
+          #  unauthenticated_metrics_access = "true"
+          #}
+        }
+
+        storage "raft" {
+          path = "/vault/data"
+        }
+
+        service_registration "kubernetes" {}
+      enabled: false
+      setNodeId: false
+    replicas: 3
+  image:
+    pullPolicy: IfNotPresent
+    repository: registry.connect.redhat.com/hashicorp/vault
+    tag: 1.11.3-ubi
+  ingress:
+    activeService: true
+    enabled: false
+    hosts:
+      - host: chart-example.local
+    pathType: Prefix
+  livenessProbe:
+    enabled: false
+    failureThreshold: 2
+    initialDelaySeconds: 60
+    path: /v1/sys/health?standbyok=true
+    periodSeconds: 5
+    successThreshold: 1
+    timeoutSeconds: 3
+  networkPolicy:
+    enabled: false
+  preStopSleepSeconds: 5
+  readinessProbe:
+    enabled: true
+    failureThreshold: 2
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    successThreshold: 1
+    timeoutSeconds: 3
+  route:
+    activeService: true
+    enabled: false
+    host: chart-example.local
+    tls:
+      termination: passthrough
+  service:
+    enabled: true
+    externalTrafficPolicy: Cluster
+    port: 8200
+    publishNotReadyAddresses: true
+    targetPort: 8200
+  serviceAccount:
+    create: true
+  shareProcessNamespace: false
+  standalone:
+    config: >
+      ui = true
+
+
+      listener "tcp" {
+        tls_disable = 1
+        address = "[::]:8200"
+        cluster_address = "[::]:8201"
+        # Enable unauthenticated metrics access (necessary for Prometheus Operator)
+        #telemetry {
+        #  unauthenticated_metrics_access = "true"
+        #}
+      }
+
+      storage "file" {
+        path = "/vault/data"
+      }
+
+
+      # Example configuration for using auto-unseal, using Google Cloud KMS. The
+
+      # GKMS keys must already exist, and the cluster must have a service
+      account
+
+      # that is authorized to access GCP KMS.
+
+      #seal "gcpckms" {
+
+      #   project     = "vault-helm-dev"
+
+      #   region      = "global"
+
+      #   key_ring    = "vault-helm-unseal-kr"
+
+      #   crypto_key  = "vault-helm-unseal-key"
+
+      #}
+
+
+      # Example configuration for enabling Prometheus metrics in your config.
+
+      #telemetry {
+
+      #  prometheus_retention_time = "30s",
+
+      #  disable_hostname = true
+
+      #}
+    enabled: '-'
+  terminationGracePeriodSeconds: 10
+  updateStrategyType: OnDelete
+serverTelemetry:
+  prometheusRules:
+    enabled: false
+  serviceMonitor:
+    enabled: false
+    interval: 30s
+    scrapeTimeout: 10s
+ui:
+  activeVaultPodOnly: false
+  enabled: false
+  externalPort: 8200
+  externalTrafficPolicy: Cluster
+  publishNotReadyAddresses: true
+  serviceType: ClusterIP
+  targetPort: 8200
