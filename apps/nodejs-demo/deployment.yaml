@@ -28,10 +28,6 @@ spec:
       serviceAccount: nodejs-demo-vault
       containers:
         - image: quay.io/spiro-redhat/node.js:latest@sha256:0c5d14e543321a8c40cd4d30df6fe6d76c88e98e261290875565e062e1a712f9
-          command:
-            ['sh', '-c']
-          args:
-             ['-c', 'source /vault/secrets/config && env > /vault/secrets/config && tail -f /dev/null']
           name: nodejs-demo
           resources:
             requests:
