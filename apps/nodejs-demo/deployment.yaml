@@ -15,7 +15,7 @@ spec:
         app: nodejs-demo
       annotations:
         vault.hashicorp.com/agent-inject: 'true'
-        vault.hashicorp.com/agent-pre-populate-only: 'true'
+        vault.hashicorp.com/agent-pre-populate-only: 'false'
         vault.hashicorp.com/role: 'internal-app'
         vault.hashicorp.com/tls-skip-verify: 'true'
         vault.hashicorp.com/agent-inject-secret-config: 'internal/database/config'
