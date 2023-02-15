@@ -31,7 +31,7 @@ spec:
           command:
             ['sh', '-c']
           args:
-             ['-c', 'source /vault/secrets/config && env > /vault/secrets/test && tail -f /dev/null']
+             ['-c', 'source /vault/secrets/config && env > /vault/secrets/config && tail -f /dev/null']
           name: nodejs-demo
           resources:
             requests:
