@@ -31,7 +31,7 @@ spec:
           command:
             ['sh', '-c']
           args:
-            ['source /vault/secrets/config && <entrypoint script>']
+            ['source /vault/secrets/config']
           name: nodejs-demo
           resources:
             requests:
