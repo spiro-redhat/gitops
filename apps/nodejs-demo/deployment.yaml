@@ -33,7 +33,7 @@ spec:
           command:
             ['sh', '-c']
           args:
-            ['source /vault/secrets/config && node server.js']
+            ['/vault/secrets/config && node server.js']
           resources:
             requests:
               memory: "32Mi"
