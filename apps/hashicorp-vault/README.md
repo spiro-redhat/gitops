@@ -56,7 +56,7 @@ Create a Kubernetes authentication role named `my-app`
 ```
 vault write auth/kubernetes/role/my-app \
     bound_service_account_names=nodejs-demo-hashi \
-    bound_service_account_namespaces=nodeje-demo \
+    bound_service_account_namespaces=nodejs-demo \
     policies=my-app-secrets \
     ttl=24h
 ```
