@@ -31,7 +31,7 @@ spec:
         - image: quay.io/spiro-redhat/node.js:19@sha256:4e7e9ec74254d11389171398c56a11148661c15e497d7599df5faee07ec49cb2
           name: nodejs-demo-hashi
           command: ['/bin/sh', '-c']
-          args: ['source /vault/secrets/config && node server.js']
+          args: ['source /vault/secrets/database && node server.js']
           resources:
             requests:
               memory: "32Mi"
