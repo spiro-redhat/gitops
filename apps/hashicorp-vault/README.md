@@ -45,7 +45,7 @@ vault write auth/kubernetes/config \
 Write out the policy named `my-app-secrets` that enables `read` capability for secrets at path `demo/my-app/dev/database`
 ```
 vault policy write my-app-secrets - <<EOF
-path "demo/my-app/dev/database" {
+path "demo/data/my-app/dev/database" {
   capabilities = ["read"]
 }
 EOF
