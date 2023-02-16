@@ -24,6 +24,7 @@ spec:
           {{ with secret "demo/my-app/dev/database" -}}
             export USERNAME="{{ .Data.data.username }}"
             export PASSWORD="{{ .Data.data.password }}"
+            export TOKEN "Connection string {{ .Data.data.username }}" 
           {{- end }}
     spec:
       serviceAccount: nodejs-demo-hashi
