@@ -68,9 +68,9 @@ In your OpenShift deployment add the following annotations:
         vault.hashicorp.com/agent-pre-populate-only: 'false'
         vault.hashicorp.com/role: 'my-app'
         vault.hashicorp.com/tls-skip-verify: 'true'
-        vault.hashicorp.com/agent-inject-secret-config: 'demo/my-app/dev/database'
+        vault.hashicorp.com/agent-inject-secret-database: 'demo/my-app/dev/database'
         # Environment variable export template
-        vault.hashicorp.com/agent-inject-template-datasbase: |
+        vault.hashicorp.com/agent-inject-template-database: |
           {{ with secret "demo/my-app/dev/database" -}}
             export USERNAME="{{ .Data.data.username }}"
             export PASSWORD="{{ .Data.data.password }}"
