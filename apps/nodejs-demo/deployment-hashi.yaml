@@ -16,14 +16,14 @@ spec:
       annotations:
         vault.hashicorp.com/agent-inject: 'true'
         vault.hashicorp.com/agent-pre-populate-only: 'false'
-        vault.hashicorp.com/role: 'internal-app'
+        vault.hashicorp.com/role: 'my-app'
         vault.hashicorp.com/tls-skip-verify: 'true'
-        vault.hashicorp.com/agent-inject-secret-config: 'internal/database/config'
+        vault.hashicorp.com/agent-inject-secret-config: 'demo/my-app/dev/database'
         # Environment variable export template
-        vault.hashicorp.com/agent-inject-template-config: |
-          {{ with secret "internal/database/config" -}}
-            export TOKEN="{{ .Data.data.password }}"
-
+        vault.hashicorp.com/agent-inject-template-datasbase: |
+          {{ with secret "demo/my-app/dev/database" -}}
+            export USERNAME="{{ .Data.data.username }}"
+            export PASSWORD="{{ .Data.data.password }}"
           {{- end }}
     spec:
       serviceAccount: nodejs-demo-hashi

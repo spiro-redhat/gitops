@@ -21,7 +21,7 @@ oc exec -n hashicorp-vault -it vault-0 -- /bin/sh
 ```
 Enable the kv-v2 secrets engine at a path called `demo` 
 ```
-vault secrets enable -path=internal kv-v2
+vault secrets enable -path=demo kv-v2
 ```
 Create a secret path at `demo/my-app/dev/database` 
 
@@ -38,7 +38,9 @@ vault auth enable kubernetes
 ```
 Configure the kubernetes authentication method to use the kubernetes API 
 ```
-vault auth enable kubernetes
+vault write auth/kubernetes/config \
+    kubernetes_host="https://$KUBERNETES_PORT_443_TCP_ADDR:443"
+
 ```
 Write out the policy named `my-app-secrets` that enables `read` capability for secrets at path `demo/my-app/dev/database`
 ```
