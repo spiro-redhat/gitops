@@ -14,7 +14,7 @@ spec:
       labels:
         app: nodejs-demo-hashi
       annotations:
-        vault.hashicorp.com/agent-inject: 'true'
+        vault.hashicorp.com/agent-inject: 'false'
         vault.hashicorp.com/agent-pre-populate-only: 'true'
         vault.hashicorp.com/role: 'my-app'
         vault.hashicorp.com/tls-skip-verify: 'true'
