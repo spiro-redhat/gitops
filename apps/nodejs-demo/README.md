@@ -14,6 +14,6 @@
 vault write auth/kubernetes/config \
      token_reviewer_jwt="$SA_JWT_TOKEN" \
      kubernetes_host="$KUBE_HOST" \
-     kubernetes_ca_cert="$SA_CA_CERT" \
+     kubernetes_ca_cert="$SA_CA_CRT" \
      issuer="https://kubernetes.default.svc.cluster.local"
 ```
