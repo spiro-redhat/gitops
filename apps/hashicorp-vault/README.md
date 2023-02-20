@@ -18,9 +18,9 @@ Setting up Kube Auth
 ```
 SA_NAME=vault-auth 
 SECRET_NAME=vault-auth-token-982vn 
-TOKEN_REVIEW_JWT=$(oc get secret -n hashicorp-vault $SECRET_NAME -o jsonpath '{.data.token}' | base64 --decode)
-KUBE_CA_CRT=$(oc get secret -n hashicorp-vault $SECRET_NAME -o jsonpath {.data.ca\.crt}' | base64 --decode)
-KUBE_HOST=$(oc config view --raw --minify --flatten --output='jsonpath={.clusters[].cluster.server}')
+TOKEN_REVIEW_JWT=$(oc get secret -n hashicorp-vault $SECRET_NAME -o jsonpath='{.data.token}' | base64 --decode)
+KUBE_CA_CRT=$(oc get secret -n hashicorp-vault $SECRET_NAME -o jsonpath='{.data.ca\.crt}' | base64 --decode)
+KUBE_HOST=$(oc config view --raw --minify --flatten --output=jsonpath='{.clusters[].cluster.server}')
 
 vault write auth/kubernetes/config \
      token_reviewer_jwt="$TOKEN_REVIEW_JWT" \
