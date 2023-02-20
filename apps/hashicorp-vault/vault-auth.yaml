@@ -14,4 +14,4 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: vault-auth
-  namespace: '{{path.basename}}'
+  namespace: hashicorp-vault
