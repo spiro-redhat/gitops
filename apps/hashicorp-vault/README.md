@@ -25,7 +25,7 @@ KUBE_HOST=$(oc config view --raw --minify --flatten --output=jsonpath='{.cluster
 vault write auth/kubernetes/config \
      token_reviewer_jwt="$TOKEN_REVIEW_JWT" \
      kubernetes_host="$KUBE_HOST" \
-     kubernetes_ca_cert="$KUBE_CA_CERT" \
+     kubernetes_ca_cert="$KUBE_CA_CRT" \
      issuer="https://kubernetes.default.svc.cluster.local"
 ```
 
