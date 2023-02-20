@@ -18,7 +18,7 @@ spec:
         vault.hashicorp.com/agent-pre-populate-only: 'true'
         vault.hashicorp.com/role: 'my-app'
         vault.hashicorp.com/tls-skip-verify: 'true'
-        vault.hashicorp.com/service: spi-hashi-cluster-0-public-vault-fa245183.5d4734c5.z1.hashicorp.cloud:8200
+        vault.hashicorp.com/service: vault-service
         vault.hashicorp.com/agent-inject-secret-database: 'demo/my-app/dev/database'
         # Environment variable export template
         vault.hashicorp.com/agent-inject-template-database: |
