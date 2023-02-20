@@ -20,7 +20,7 @@ endPoints:
   - addresses:  
     - "spi-hashi-cluster-0-public-vault-fa245183.5d4734c5.z1.hashicorp.cloud" 
 ports:
-  - name: https
+  - name: server
     protocol: TCP
     port: 8200
 
