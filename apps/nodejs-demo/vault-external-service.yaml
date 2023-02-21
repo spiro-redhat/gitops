@@ -12,21 +12,3 @@ spec:
      nodePort: 0
   selector: {}
 ---
-apiVersion: discovery.k8s.io/v1
-kind: EndpointSlice
-labels:
-  kubernetes.io/service-name: endpointslicesample
-metadata:
-  name: vault-service
-# name: vault.hashicorp.local
-addressType: FQDN 
-endpoints: 
-  - addresses: 
-    - spi-hashi-cluster-0-public-vault-fa245183.5d4734c5.z1.hashicorp.cloud
-spec: 
-  ports:
-    - 
-      name: vault
-      port: 8200
-      fqdn: 
-      resolution: DNS
