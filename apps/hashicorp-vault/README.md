@@ -68,13 +68,14 @@ EOF
 // this is best case so far 
 
 
-export SA_SECRET_NAME=vault-auth-secret
-export SA_JWT_TOKEN=$(oc  get secret -n hashicorp-vault $SA_SECRET_NAME \
-    --output 'go-template={{ .data.token }}' | base64 --decode)
+SA_JWT_TOKEN=$(oc get secret vault-auth -n hashicorp-vault -o go-template='{{ .data.token }}' | base64 --d) 
 
-export SA_CA_CRT=$(oc get  secret vault-auth-secret -n hashicorp-vault -o jsonpath='{.data.service-ca\.crt}' | base64 -d )
+export SA_CA_CRT=$(oc get  secret $SA_SECRET_NAME -n nodejs-demo -o jsonpath='{.data.service-ca\.crt}' | base64 -d )
 export K8S_HOST=$(kubectl config view --raw --minify --flatten \
     --output 'jsonpath={.clusters[].cluster.server}')
+
+vault read auth/kubernetes/config
+
 
 vault write auth/kubernetes/config \
      token_reviewer_jwt="$SA_JWT_TOKEN" \
