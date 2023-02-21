@@ -60,13 +60,27 @@ vault write auth/kubernetes/config \
 Write out the policy named `my-app-secrets` that enables `read` capability for secrets at path `demo/my-app/dev/database`
 ```
 vault policy write my-app-secrets - <<EOF
-path "demo/data/my-app/dev/database" {
-  capabilities = ["read"]
+path "demo/data/my-app/dev/*" {
+  capabilities = ["read" , "list"]
 }
 EOF
 ```
+// this is best case so far 
 
-Create a Kubernetes authentication role named `my-app`
+
+export SA_SECRET_NAME=vault-auth-secret
+export SA_JWT_TOKEN=$(oc  get secret -n hashicorp-vault $SA_SECRET_NAME \
+    --output 'go-template={{ .data.token }}' | base64 --decode)
+
+export SA_CA_CRT=$(oc get  secret vault-auth-secret -n hashicorp-vault -o jsonpath='{.data.service-ca\.crt}' | base64 -d )
+export K8S_HOST=$(kubectl config view --raw --minify --flatten \
+    --output 'jsonpath={.clusters[].cluster.server}')
+
+vault write auth/kubernetes/config \
+     token_reviewer_jwt="$SA_JWT_TOKEN" \
+     kubernetes_host="$K8S_HOST" \
+     kubernetes_ca_cert="$SA_CA_CRT" \
+     issuer="https://kubernetes.default.svc.cluster.local"
 
 ```
 vault write auth/kubernetes/role/my-app \
