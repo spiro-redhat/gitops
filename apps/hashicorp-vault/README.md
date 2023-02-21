@@ -72,16 +72,14 @@ SA_SECRET_NAME=vault-auth
 SA_JWT_TOKEN=$(oc get secret $SA_SECRET_NAME -n hashicorp-vault -o go-template='{{ .data.token }}' | base64 -d) 
 
 export SA_CA_CRT=$(oc get  secret $SA_SECRET_NAME -n hashicorp-vault -o jsonpath='{.data.ca\.crt}' | base64 -d )
-export K8S_HOST=$(kubectl config view --raw --minify --flatten \
-    --output 'jsonpath={.clusters[].cluster.server}')
-
+export K8S_HOST=$(kubectl config view --raw --minify --flatten --output 'jsonpath={.clusters[].cluster.server}')
 
 
 vault write auth/kubernetes/config \
      token_reviewer_jwt="$SA_JWT_TOKEN" \
      kubernetes_host="$K8S_HOST" \
      kubernetes_ca_cert="$SA_CA_CRT" \
-     issuer="https://kubernetes.default.svc.cluster.local"
+     disable_local_ca_jwt="true"
 
 vault read auth/kubernetes/config
 
