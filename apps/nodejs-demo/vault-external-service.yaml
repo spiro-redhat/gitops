@@ -3,6 +3,8 @@ kind: Service
 metadata:
   name: vault-service
 spec:
+  type: ExternalName
+  externalName: spi-hashi-cluster-0-public-vault-fa245183.5d4734c5.z1.hashicorp.cloud
   ports:
    - 
      name: vault
@@ -15,10 +17,10 @@ spec:
 apiVersion: discovery.k8s.io/v1
 kind: EndpointSlice
 metadata:
-  name: vault-service 
+  name: vault-service-endpoint
 # name: vault.hashicorp.local
   labels:
-    kubernetes.io/service-name: vault-service
+    kubernetes.io/service-name: vault-service-endpoint
 addressType: FQDN
 endpoints:
   - addresses:  
