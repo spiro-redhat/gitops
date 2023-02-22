@@ -13,6 +13,24 @@ spec:
     url: https://helm.releases.hashicorp.com
 ```
 
+Setting up CLI 
+
+export VAULT_ADDR="https://spi-hashi-cluster-0-public-vault-93264274.0c3c1a21.z1.hashicorp.cloud:8200"
+export VAULT_NAMESPACE="admin"
+export VAULT_TOKEN="hvs.CAESIOd2LiuwZCQVC47C3NiNBJ2uwiP8zK3Mu5W5T6Tb6woTGicKImh2cy40VzlxMmJZNzlHNUNwN2x4N0xZc3RhZ3EuWjVtQW0Qugk"
+
+vault auth list 
+
+
+
+
+
+
+
+
+
+
+
 
 Setting up Kube Auth 
 ```
@@ -75,15 +93,14 @@ export SA_CA_CRT=$(oc get cm admin-kubeconfig-client-ca -n openshift-config -o j
 export SA_CA_CRT=$(oc get  secret $SA_SECRET_NAME -n hashicorp-vault -o jsonpath='{.data.ca\.crt}' | base64 -d )
 
 
-export K8S_HOST=$(kubectl config view --raw --minify --flatten --output 'jsonpath={.clusters[].cluster.server}')
+export K8S_HOST=$(oc config view --raw --minify --flatten --output 'jsonpath={.clusters[].cluster.server}')
 
 vault write admin/auth/
 vault write auth/kubernetes/config \
-     token_reviewer_jwt="$SA_JWT_TOKEN" \
+     token_reviewer_jwt="$AUTH_JWT" \
      kubernetes_host="$K8S_HOST" \
-     kubernetes_ca_cert="$SA_CA_CRT" \
-     disable_local_ca_jwt="true"
-
+     kubernetes_ca_cert="$CA_CRT" 
+     
 vault read auth/kubernetes/config
 
 
