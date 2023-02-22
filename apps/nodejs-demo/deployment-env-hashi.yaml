@@ -14,12 +14,13 @@ spec:
       labels:
         app: nodejs-demo-hashi
       annotations:
-        vault.hashicorp.com/agent-inject: 'false'
+        vault.hashicorp.com/agent-inject: 'true'
         vault.hashicorp.com/agent-pre-populate-only: 'true'
         vault.hashicorp.com/role: 'my-app'
         vault.hashicorp.com/tls-skip-verify: 'true'
-        # vault.hashicorp.com/service: vault-service.nodejs-demo.svc.cluster.local
+        vault.hashicorp.com/service: https://spi-hashi-cluster-0-public-vault-93264274.0c3c1a21.z1.hashicorp.cloud:8200
         vault.hashicorp.com/agent-inject-secret-database: 'demo/my-app/dev/database'
+        vault.hashicorp.com/auth-path: 'admin/auth/kubernetes'
         # Environment variable export template
         vault.hashicorp.com/agent-inject-template-database: |
           {{ with secret "demo/my-app/dev/database" -}}

@@ -85,6 +85,12 @@ EOF
 ```
 // this is best case so far 
 
+The JWT from the vault serviceaccount (use name in the name of vault service in helmchart) has the auth delegated role in order to validate the service account the agent is using to talk to vault has a valid cluster identity . 
+
+
+
+
+
 
 SA_SECRET_NAME=vault-auth
 SA_JWT_TOKEN=$(oc get secret $SA_SECRET_NAME -n hashicorp-vault -o go-template='{{ .data.token }}' | base64 -d) 
