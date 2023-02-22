@@ -19,11 +19,11 @@ spec:
         vault.hashicorp.com/role: 'my-app'
         vault.hashicorp.com/tls-skip-verify: 'true'
         vault.hashicorp.com/service: https://spi-hashi-cluster-0-public-vault-93264274.0c3c1a21.z1.hashicorp.cloud:8200
-        vault.hashicorp.com/agent-inject-secret-database: 'demo/my-app/dev/database'
+        vault.hashicorp.com/agent-inject-secret-database: 'admin/demo/my-app/dev/database'
         vault.hashicorp.com/auth-path: 'admin/auth/kubernetes'
         # Environment variable export template
         vault.hashicorp.com/agent-inject-template-database: |
-          {{ with secret "demo/my-app/dev/database" -}}
+          {{ with secret "admin/demo/my-app/dev/database" -}}
             export USERNAME="{{ .Data.data.username }}"
             export PASSWORD="{{ .Data.data.password }}"
             export TOKEN="The token is this string= {{ .Data.data.username }}" 
@@ -33,8 +33,8 @@ spec:
       containers:
         - image: quay.io/spiro-redhat/node.js:19@sha256:4e7e9ec74254d11389171398c56a11148661c15e497d7599df5faee07ec49cb2
           name: nodejs-demo-hashi
-         # command: ['/bin/sh', '-c']
-         # args: ['source /vault/secrets/database && node server.js']
+          command: ['/bin/sh', '-c']
+          args: ['source /vault/secrets/database && node server.js']
           resources:
             requests:
               memory: "32Mi"
