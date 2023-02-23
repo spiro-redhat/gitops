@@ -44,6 +44,7 @@ spec:
       fluentd: {}
   curation:
     curator:
+      schedule: 30 3 * * *
       resources:
         limits:
           memory: 200Mi
