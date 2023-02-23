@@ -12,3 +12,10 @@ spec:
   source: redhat-operators
   sourceNamespace: openshift-marketplace
   startingCSV: cluster-logging.v5.6.2
+---
+aapiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: openshift-operators-redhat
+  namespace: openshift-operators-redhat 
+spec: {}
