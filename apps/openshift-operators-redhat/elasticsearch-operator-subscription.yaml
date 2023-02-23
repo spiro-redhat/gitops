@@ -16,3 +16,10 @@ spec:
   source: redhat-operators
   sourceNamespace: openshift-marketplace
   startingCSV: elasticsearch-operator.v5.6.2
+---
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: openshift-operators-redhat
+  namespace: openshift-operators-redhat 
+spec: {}
