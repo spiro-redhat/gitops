@@ -138,11 +138,17 @@ vault read auth/kubernetes/config
 
 ```
 vault write auth/kubernetes/role/my-app \
-    bound_service_account_names=nodejs-demo-hashi \
-    bound_service_account_namespaces=nodejs-demo \
+    bound_service_account_names=nodejs-demo-hashi,hello-world-app \
+    bound_service_account_namespaces=nodejs-demo,hello-world \
     policies=my-app-secrets \
     ttl=24h
 ```
+```
+vault write auth/kubernetes/role/my-app \
+    bound_service_account_names=hello-world-app \
+    bound_service_account_namespaces=nodejs-demo \
+    policies=my-app-secrets \
+    ttl=24h
 
 In your OpenShift deployment add the following annotations: 
 ```
