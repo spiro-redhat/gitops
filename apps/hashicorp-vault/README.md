@@ -17,7 +17,7 @@ Setting up CLI
 
 export VAULT_ADDR="https://spi-hashi-cluster-0-public-vault-93264274.0c3c1a21.z1.hashicorp.cloud:8200"
 export VAULT_NAMESPACE="admin"
-export VAULT_TOKEN="hvs.CAESIDeN40tJoxd6WuKsSlxf2HagXIfIxj5zj2F_7NbfyTSLGicKImh2cy5iVkhsS3ZHcmhLN2I4bUFxNldwWFZFR0IuWjVtQW0Q7UU"
+export VAULT_TOKEN="hvs.CAESIOK0jZckjEwQWbigEQL6e_8J5Z38mmqcI3iFG6uwsPanGicKImh2cy5jTVQwUkNLb3Q0RDVwSDNubDJPRUxSUW0uWjVtQW0Qilk"
 
 vault auth list 
 
