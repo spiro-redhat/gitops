@@ -19,10 +19,12 @@ spec:
         vault.hashicorp.com/agent-inject-secret-index.html: 'admin/demo/my-app/dev/hello-world'
         # this path to be rendered (arbitary path)
         vault.hashicorp.com/secret-volume-path-index.html: /usr/share/nginx/html
+        vault.hashicorp.com/secret-volume-path-contact.html: /usr/share/nginx/html
         # this is the k8s secret that contains the template that tells the vault agent how to render the secret on line 23
-        vault.hashicorp.com/agent-extra-secret: vault-agent-template-index-html 
+        vault.hashicorp.com/agent-extra-secret: vault-agent-template-web-pages 
         # this tells vault where to load the template so it can get rendered 
         vault.hashicorp.com/agent-inject-template-file-index.html: /vault/custom/index.html.ctmpl
+        vault.hashicorp.com/agent-inject-template-file-contact.html: /vault/custom/contact.html.ctmpl
         vault.hashicorp.com/auth-path: 'admin/auth/kubernetes'
         vault.hashicorp.com/agent-inject: 'true'
         #vault.hashicorp.com/agent-inject-status: 'update'
