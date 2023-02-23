@@ -23,7 +23,7 @@ spec:
     vault.hashicorp.com/agent-extra-secret: vault-agent-template-index-html 
     vault.hashicorp.com/auth-path: 'admin/auth/kubernetes'
     vault.hashicorp.com/agent-inject: 'true'
-    vault.hashicorp.com/agent-inject-status: 'update'
+    #vault.hashicorp.com/agent-inject-status: 'update'
     vault.hashicorp.com/role: 'my-app'
     spec:
       serviceAccountName: helloworld-app
