@@ -43,6 +43,7 @@ spec:
       type: "fluentd"
       fluentd: {}
   curation:
+    type: "curator"
     curator:
       schedule: 30 3 * * *
       resources:
@@ -51,4 +52,4 @@ spec:
         requests:
           cpu: 200m
           memory: 200Mi
-      type: "curator"
+      
