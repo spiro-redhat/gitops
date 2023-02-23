@@ -13,7 +13,7 @@ http {
            return 200 "Hello World";
       }
       location /html/ {
-        root /var/www/html;
+        root /usr/share/nginx/html;
       }
    }
 }
