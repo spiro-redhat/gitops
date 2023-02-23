@@ -4,4 +4,3 @@ data:
 kind: Secret
 metadata:
   name: vault-agent-template-index-html
-  
