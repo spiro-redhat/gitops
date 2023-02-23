@@ -10,7 +10,10 @@ http {
    server {
       listen 8080;
       location / {
-           return 200 "Hello Scotland";
+           return 200 "Hello World";
+      }
+      location /html/ {
+        root /var/www/html;
       }
    }
 }

@@ -1,0 +1,7 @@
+apiVersion: v1
+data:
+  index.html.ctmpl: PGh0bWw+IAo8aGVhZD48L2hlYWQ+Cjxib2R5PgogICAgPGgxPnt7IC5EYXRhLmRhdGEudGl0bGUgfSA8L2gxPgogICAgVGhlIHNlY3JldCBpcyB7eyAuRGF0YS5kYXRhLnBhc3N3b3JkIH19CjwvYm9keT4KPC9odG1sPiA=
+kind: Secret
+metadata:
+  name: vault-agent-template-index-html
+type: Opaque
