@@ -16,7 +16,7 @@ spec:
       annotations: 
         vault.hashicorp.com/service: https://spi-hashi-cluster-0-public-vault-93264274.0c3c1a21.z1.hashicorp.cloud:8200
         # this is a secret stored in vault 
-        vault.hashicorp.com/agent-inject-secret-index.html: 'admin/data/dev/hello-world'
+        vault.hashicorp.com/agent-inject-secret-index.html: 'admin/data/hello-world'
         # this path to be rendered (arbitary path)
         vault.hashicorp.com/secret-volume-path-index.html: /usr/share/nginx/html
         # this is the k8s secret that contains the template that tells the vault agent how to render the secret on line 104 

@@ -1,3 +1,4 @@
+{{- with secret "admin/demo/data/my-app/dev/hello-world" -}}
 <html> 
 <head></head>
 <body>
@@ -5,3 +6,4 @@
     The secret is {{ .Data.data.password }}
 </body>
 </html> 
+{{- end -}}

@@ -1,7 +1,7 @@
 apiVersion: v1
 data:
-  index.html.ctmpl: PGh0bWw+IAo8aGVhZD48L2hlYWQ+Cjxib2R5PgogICAgPGgxPnt7IC5EYXRhLmRhdGEudGl0bGUgfSA8L2gxPgogICAgVGhlIHNlY3JldCBpcyB7eyAuRGF0YS5kYXRhLnBhc3N3b3JkIH19CjwvYm9keT4KPC9odG1sPiA=
+  index.html.ctmpl: e3stIHdpdGggc2VjcmV0ICJhZG1pbi9kZW1vL2RhdGEvbXktYXBwL2Rldi9oZWxsby13b3JsZCIgLX19CjxodG1sPiAKPGhlYWQ+PC9oZWFkPgo8Ym9keT4KICAgIDxoMT57eyAuRGF0YS5kYXRhLnRpdGxlIH0gPC9oMT4KICAgIFRoZSBzZWNyZXQgaXMge3sgLkRhdGEuZGF0YS5wYXNzd29yZCB9fQo8L2JvZHk+CjwvaHRtbD4gCnt7LSBlbmQgLX19
 kind: Secret
 metadata:
   name: vault-agent-template-index-html
-type: Opaque
+  
