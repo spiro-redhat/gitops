@@ -87,6 +87,32 @@ EOF
 
 The JWT from the vault serviceaccount (use name in the name of vault service in helmchart) has the auth delegated role in order to validate the service account the agent is using to talk to vault has a valid cluster identity . 
 
+/*
+inside of the webhook injection  yaml you can specify namespaces using selectors: 
+namespaceSelector:
+      matchExpressions:
+        - key: kubernetes.io/metadata.name
+          operator: In
+          values:
+            - hcp-vault-1-app
+
+
+Also see secret volume path and ctmpl files can be used for the .config sections 
+annotations:
+        vault.hashicorp.com/service: >-
+          https://benh-dev-vault-public-vault-994c92c5.0de5d5f2.z1.hashicorp.cloud:8200
+        vault.hashicorp.com/agent-inject-secret-index.html: admin/app/internal/data/meow/config   # this is a secret stored in vault 
+        vault.hashicorp.com/secret-volume-path-index.html: /usr/share/nginx/html                  # this path to be rendered (arbitary path)
+        vault.hashicorp.com/agent-extra-secret: vault-agent-template-index-htm                    
+        # this is the k8s secret that contains the template that tells the vault agent how to render the secret on line 104 
+        
+        
+        vault.hashicorp.com/agent-inject-template-file-index.html: /vault/custom/index.html.ctmpl
+        # this is the template from the vault secret in 106 that (mount point of the vault secret) tells the vault agent to render the secret on line 104 
+
+
+*/ 
+
 
 
 

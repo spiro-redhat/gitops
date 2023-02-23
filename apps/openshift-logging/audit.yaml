@@ -15,14 +15,8 @@ spec:
       type: elasticsearch
   pipelines:
     - inputRefs:
-        - application
         - audit
-        - infrastructure
       name: enable-default-log-store
       outputRefs:
         - default
-    - inputRefs:
-        - application
-      name: forward-to-remote
-      outputRefs:
-        - remote-elasticsearch
+   
