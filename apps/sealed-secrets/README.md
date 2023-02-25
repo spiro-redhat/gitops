@@ -133,7 +133,7 @@ Using the above information we can now add a flag to ensure `strict` mode when `
 		--from-file=/dev/stdin -o yaml | \
 		kubeseal --controller-namespace sealed-secrets \
 		--scope strict 
-		-n <YOUR_NAMESPACE>
+		-n <namespace>
 		-o yaml  > sealed-secret.yaml
 
 # strict scope is the default option so omitting `--scope` will enfore strict mode. 
@@ -144,7 +144,12 @@ Using the above information we can now add a flag to ensure `strict` mode when `
 # --scope cluster-wide     Change the name or the namespace 
 
 ```
-
+Create a secret already from a file, seal it, then delete the file: 
+```
+oc create secret creds -n <namespace> --dry-run=client -o yaml > secret.txt 
+kubeseal --controller-namespace=sealed-secrets -n <namespace> < secret.txt > sealed-secret.yaml
+rm secret.txt 
+```
 
 
 
@@ -187,3 +192,5 @@ oc delete pod -n sealed-secrets -l name=sealed-secrets-controller
 ![](img/sealed-secret-architecture.png?raw=true "Title") 
 
 ​The components that are deployed with the sealed-secrets-controller. 
+
+
