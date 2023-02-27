@@ -21,7 +21,7 @@ spec:
         vault.hashicorp.com/tls-skip-verify: 'true'
         vault.hashicorp.com/service: https://spi-hashi-cluster-0-public-vault-ddee248c.f2dac3f1.z1.hashicorp.cloud:8200
         vault.hashicorp.com/agent-inject-secret-database: 'secrets/my-app/dev/database'
-        vault.hashicorp.com/auth-path: 'admin/auth/kubernetes'
+        vault.hashicorp.com/auth-path: 'auth/kubernetes'
         # Environment variable export template
         vault.hashicorp.com/agent-inject-template-database: |
           {{ with secret "secrets/my-app/dev/database" -}}
