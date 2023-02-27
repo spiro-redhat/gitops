@@ -26,7 +26,7 @@ spec:
         # this tells vault where to load the template so it can get rendered 
         vault.hashicorp.com/agent-inject-template-file-contact.html: /vault/custom/contact.html.ctmpl
         vault.hashicorp.com/agent-inject-template-file-index.html: /vault/custom/index.html.ctmpl
-        vault.hashicorp.com/auth-path: 'admin/auth/kubernetes'
+        vault.hashicorp.com/auth-path: 'admin/ocp/auth/kubernetes'
         vault.hashicorp.com/agent-inject: 'true'
         #vault.hashicorp.com/agent-inject-status: 'update'
         vault.hashicorp.com/agent-pre-populate-only: 'true'
