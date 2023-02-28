@@ -53,8 +53,6 @@ path               admin/ocp/
 
 ![](img/step2.png) 
 
- ![](img/one.png )    search for the vault helm chart
-
  ![](img/one.png )   search for the vault helm chart 
  
  ![](img/two.png )   select the chart repository  
