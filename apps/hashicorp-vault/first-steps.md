@@ -1,20 +1,21 @@
 
 # Building self serving platforms 
 
-The DevOps report 2023 revealed some interesting developments in the evolution of devops as a practice.  A signifant finding was the emergence of the plaform or more specifically platform engineering. Platform engineering can be generally considered as the development of a product aware infrastructure that provisioning self service capbilities. Platform teams continually adapt and evolve those services and enable stream aligned teams to access those service in a frictionless and automated way. Teams consuming the platform  are aligned to the organisations vaule streams. The business outcome tends towards increased productivity and better quaility outcomes through standardised practices, better security and a better quality product.  
+The DevOps report 2023 revealed some interesting developments in the evolution of devops as a practice.  A signifant finding was the emergence of the plaform or more specifically platform engineering. Platform engineering can be generally considered as the development of a product aware infrastructure that provisions self service capbilities. Platform teams continually adapt and evolve those services and enable stream aligned teams to access those service in a frictionless and automated way. Teams consuming the platform  are also aligned to the organisations vaule streams. The business outcome tends towards increased productivity through standardised practices, less work duplication, better security and ultimately, a better quality product.  
 
-This blog will discuss how self-serving encryption service may be incorporated as a platform service within your organisation or enterprise. The design goal is to address varied governance concerns across business units within the organsation through the imposition of boundaries that  isolate vaults from one another but still remaining within the same overall  . Reducing the cognitive load of platform and value stream teams is also a core design goal as this allows your teams to focus on what matters most, your business.  
+This blog will discuss and demonstrate how a self-serving encryption service may be incorporated as a platform service within your organisation or enterprise. The design goal is to address varied governance concerns across business units within the organsation through the imposition of boundaries that  isolate vaults from one another whilst remaining within the same overall deployment. By creating low resistance interaction between platform and stream aligned teams, the cognitive load of both is reduced therby permitting teams to focus on what matters most, the business.  
 
-Hashicorp Vault is used as an example and I will show it can be integrated into OpenShift to provide encryption as a service to your workloads. The examples in this blog are for demonstrated purposes only and are no way assuming their relevance for any specfic context. They should however be sufficiently adaptable to meet common businss scenarios. 
+Hashicorp Vault is the use case. The integration section below will show how it can be integrated into OpenShift to provide encryption as a service to your workloads. The examples in this article are for demonstrated purposes only and are in no way assuring relevance for any context. They should however be sufficiently adaptable to meet many businss scenarios. 
 
-Enterprise Vault introduced the concept of namespaces, it provides a means to create vaults within vault, each having their own encryption engine and storage backends. We are going to use this feature to create a number of namespaces. The OCP namespace, dedicated to workloads running in OpenShift is the sole focus, the others are purely illustrative, to demonstrate what a self serving capability can achieve.   
+Enterprise Vault introduced the concept of namespaces, it provides a means to create vaults within vault, each having their own encryption engine and storage backends. We are going to use this feature to create a number of namespaces. Howerver, the OCP namespace, dedicated to workloads running in OpenShift is the sole focus. The others are purely illustrative, to demonstrate what a self serving capability can achieve.   
 
 1) OCP - A namespace dedicated to workloads running in OpenShift, it will use the  
-2) Users - A namespace dedicated to users to store their own key value secrets. They will use the CubbyHole facility and no storage backends. This namespace would probably integrate with an enterprises' internal Identity Management System. 
+2) Users - A namespace dedicated to users to store their own key value secrets. They will use the CubbyHole facility and no storage backends. This namespace would probably integrate with an enterprises' internal Identity Management Provider (IDP). 
+3) Legal - A namespace dedicated to users within a legal department. They could use a different or the same IDP as the User namespace. 
 
 To follow this you will need to the following: 
 
-* A Hashicorp Vault Enterprise cloud account. Sign up for a free trial and receive $50 credit in your account. You can use this to install a Development Small cluster. The budget should last around two months. 
+* A Hashicorp Vault Enterprise cloud account. Sign up for a free trial and receive $50 credit in your account. You can use this to install a Development Small cluster. The budget should last around two months depending on your region and usage. 
 * An OpenShift account with sufficient permissions to install the agent and `ClusterRoleBindings`
 
 
@@ -25,13 +26,13 @@ To follow this you will need to the following:
 ### Installing the Vault agent in OCP.  
 
 
-###  Create a namespace that will host the agent controller 
+####  Create a namespace that will host the agent controller 
 ```
 oc create namespace hashicorp-vault 
 ```
 
 
-###  Head over to the dev console 
+####  Head over to the OpenShift developer console 
 
 ![](img/step1.png) 
 
@@ -40,7 +41,7 @@ oc create namespace hashicorp-vault
  ![](img/two.png )  select the link 
 
 
-###  Install the Vault via Helm
+####  Install the Vault via Helm
 
 ![](img/step2.png) 
 
@@ -51,7 +52,7 @@ oc create namespace hashicorp-vault
  ![](img/three.png ) install the vault agent controller 
 
 
-###  Configure the agent 
+####  Configure the agent 
 
 ![](img/step3.png) 
 
@@ -66,7 +67,7 @@ oc create namespace hashicorp-vault
  ![](img/five.png )  install the controller 
 
 
-### 5) Verify the installation 
+#### 5) Verify the installation 
 
 ![](img/step4.png) 
 
