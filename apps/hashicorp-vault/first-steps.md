@@ -13,6 +13,10 @@ Enterprise Vault introduced the concept of namespaces, it provides a means to cr
 1) OCP - A namespace dedicated to workloads running in OpenShift, it will use the  
 2) Users - A namespace dedicated to users to store their own key value secrets. They will use the CubbyHole facility and no storage backends. This namespace would probably integrate with an enterprises' internal Identity Management System. 
 
+To follow this you will need to the following: 
+
+* A Hashicorp Vault Enterprise cloud account. Sign up for a free trial and receive $50 credit in your account. You can use this to install a Development Small cluster. The budget should last around two months. 
+* An OpenShift account with sufficient permissions to install the agent and `ClusterRoleBindings`
 
 
 
@@ -22,6 +26,10 @@ Enterprise Vault introduced the concept of namespaces, it provides a means to cr
 ### Installing the Vault agent in OCP.  
 
 
+###  Create a namespace that will host the agent controller 
+```
+oc create namespace hashicorp-vault 
+```
 
 
 ###  Head over to the dev console 
