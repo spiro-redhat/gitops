@@ -1,15 +1,22 @@
-<style>
-table {
-    border-collapse: collapse;
-}
-table, th, td {
-   border: 0px;
-}
-</style>
+
+# Building self serving platforms 
+
+The DevOps report 2023 revealed some interesting developments in the evolution of devops as a practice.  Of most signifance was the emergence of the plaform or more specifically  platform engineering. Platform engineering can be generally considered as the development of an infrastructure built around product awareness. It manifests as an ecosystem of self-serving capabilities enabling stream aligned teams to access  IT related services in a frictionless and automated way. Teams are themselves built around product awareness and are aligned towards and organisations vaule streams. The services stream aligned teams consume from platform teams enable increased productivity and better quaility outcomes through  
+standardised practices,  
+
+This blog will discuss how self-serving encryption service may be incorporated as a platform service within your organisation or enterprise. The design goal is to address varied governance concerns across business units within the organsation through the imposition of boundaries that  isolate vaults from one another but still remaining within the same overall  . Reducing the cognitive load of platform and value stream teams is also a core design goal as this allows your teams to focus on what matters most, your business.  
+
+Hashicorp Vault is used as an example and I will show it can be integrated into OpenShift to provide encryption as a service to your workloads. The examples in this blog are for demonstrated purposes only and are no way assuming their relevance for any specfic context. They should however be sufficiently adaptable to meet common businss scenarios. 
+
+Enterprise Vault introduced the concept of namespaces, it provides a means to create vaults within vault, each having their own encryption engine and storage backends. We are going to use this feature to create a number of namespaces. The OCP namespace, dedicated to workloads running in OpenShift is the sole focus, the others are purely illustrative, to demonstrate what a self serving capability can achieve.   
+
+1) OCP - A namespace dedicated to workloads running in OpenShift, it will use the  
+2) Users - A namespace dedicated to users to store their own key value secrets. They will use the CubbyHole facility and no storage backends. This namespace would probably integrate with an enterprises' internal Identity Management System. 
 
 
 
-# Connecting to an external Hashicorp Vault. 
+
+## Connecting to an external Hashicorp Vault. 
 
 
 ### Installing the Vault agent in OCP.  
@@ -21,6 +28,18 @@ table, th, td {
 oc create namespace hashicorp-vault
 ```
 
+The output should look similar: 
+
+
+```
+Key                Value
+---                -----
+custom_metadata    map[]
+id                 3zxdg
+path               admin/ocp/
+```
+
+
 ### 2) Head over to the dev console 
 
 ![](img/step1.png) 
@@ -31,16 +50,18 @@ oc create namespace hashicorp-vault
 
 
 ### 3) Install the Vault via Helm
+
 ![](img/step2.png) 
 
  ![](img/one.png )   search for the vault helm chart 
  
  ![](img/two.png )   select the chart repository  
  
- ![](img/three.png ) install the vaul agent controller 
+ ![](img/three.png ) install the vault agent controller 
 
 
 ### 4) Configure the server 
+
 ![](img/step3.png) 
 
  ![](img/one.png )     enter the address of the vault server  
@@ -63,7 +84,6 @@ oc create namespace hashicorp-vault
 
 ### Setting up Vault with the CLI.  
 
-
 Create some environment variables with the Vault address and Vault token 
 
 ```
@@ -71,7 +91,7 @@ $ export VAULT_ADDR=""
 $ export VAULT_TOKEN=""
 ```
 
-Create a namespace and set an environment variable 
+Create a namespace and set an environment variable. This is a Vault namespace rather than an OpenShift one. You can ignore this step if you are not using Vault Enterprise. 
 
 ```
 $ vault namespace create ocp   
