@@ -22,25 +22,9 @@ Enterprise Vault introduced the concept of namespaces, it provides a means to cr
 ### Installing the Vault agent in OCP.  
 
 
-### 1) Create a namespace where you would like the vault agent to be installed. 
-
-```
-oc create namespace hashicorp-vault
-```
-
-The output should look similar: 
 
 
-```
-Key                Value
----                -----
-custom_metadata    map[]
-id                 3zxdg
-path               admin/ocp/
-```
-
-
-### 2) Head over to the dev console 
+###  Head over to the dev console 
 
 ![](img/step1.png) 
 
@@ -49,7 +33,7 @@ path               admin/ocp/
  ![](img/two.png )  select the link 
 
 
-### 3) Install the Vault via Helm
+###  Install the Vault via Helm
 
 ![](img/step2.png) 
 
@@ -60,7 +44,7 @@ path               admin/ocp/
  ![](img/three.png ) install the vault agent controller 
 
 
-### 4) Configure the server 
+###  Configure the agent 
 
 ![](img/step3.png) 
 
@@ -99,6 +83,8 @@ Create a namespace and set an environment variable. This is a Vault namespace ra
 $ vault namespace create ocp   
 $ export VAULT_NAMESPACE="admin/ocp" 
 ```
+
+
 
 Enable the kv2 engine and define a path 
 
