@@ -51,6 +51,9 @@ oc create namespace hashicorp-vault
  
  ![](img/four.png )    install the controller 
 
+
+### 5) Verify the installation 
+
 ![](img/step4.png) 
 
   confirm the controller has been deployed 
