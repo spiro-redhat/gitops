@@ -25,25 +25,25 @@ oc create namespace hashicorp-vault
 
 ![](img/step1.png) 
 
-| ![](img/one.png ) | namespace from step 1 | 
-| ![](img/two.png )  | select the link | 
+ ![](img/one.png )  namespace from step 1 
+ ![](img/two.png )  select the link 
 
 ![](img/step2.png) 
 
-| ![](img/one.png ) | search for the vault helm chart | 
-| ![](img/two.png )  | select the chart repository  | 
-| ![](img/three.png )  | install the vaul agent controller | 
+ ![](img/one.png )   search for the vault helm chart 
+ ![](img/two.png )   select the chart repository  
+ ![](img/three.png ) install the vaul agent controller 
 
 ![](img/step3.png) 
 
-| ![](img/one.png ) | enter the address of the vault server | 
-| ![](img/two.png )  | check the OpenShift box | 
-| ![](img/three.png )  | enable TLS | 
-| ![](img/four.png )  | install the controller | 
+ ![](img/one.png )     enter the address of the vault server  
+ ![](img/two.png )     check the OpenShift box 
+ ![](img/three.png )   enable TLS 
+ ![](img/four.png )    install the controller 
 
 ![](img/step4.png) 
 
-|   confirm the controller has been deployed | 
+  confirm the controller has been deployed 
 
 
 
