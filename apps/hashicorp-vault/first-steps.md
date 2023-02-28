@@ -15,13 +15,13 @@ table, th, td {
 ### Installing the Vault agent in OCP.  
 
 
-1) Create a namespace where you would like the vault agent to be installed. 
+### 1) Create a namespace where you would like the vault agent to be installed. 
 
 ```
 oc create namespace hashicorp-vault
 ```
 
-2) Head over to the dev console 
+### 2) Head over to the dev console 
 
 ![](img/step1.png) 
 
@@ -29,6 +29,8 @@ oc create namespace hashicorp-vault
  
  ![](img/two.png )  select the link 
 
+
+### 3) Install the Vault via Helm
 ![](img/step2.png) 
 
  ![](img/one.png )   search for the vault helm chart 
@@ -37,6 +39,8 @@ oc create namespace hashicorp-vault
  
  ![](img/three.png ) install the vaul agent controller 
 
+
+### 4) Configure the server 
 ![](img/step3.png) 
 
  ![](img/one.png )     enter the address of the vault server  
