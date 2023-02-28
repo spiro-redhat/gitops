@@ -53,6 +53,8 @@ path               admin/ocp/
 
 ![](img/step2.png) 
 
+ ![](img/one.png )    search for the vault helm chart
+
  ![](img/one.png )   search for the vault helm chart 
  
  ![](img/two.png )   select the chart repository  
@@ -64,13 +66,15 @@ path               admin/ocp/
 
 ![](img/step3.png) 
 
- ![](img/one.png )     enter the address of the vault server  
+ ![](img/one.png )   select a name for the installation. A `ServiceAccount` will be created using this name and we will reference it later. 
 
- ![](img/two.png )     check the OpenShift box 
+ ![](img/two.png )   enter the address of the vault server  
+
+ ![](img/three.png ) check the OpenShift box 
  
- ![](img/three.png )   enable TLS 
+ ![](img/four.png )  enable TLS 
  
- ![](img/four.png )    install the controller 
+ ![](img/five.png )  install the controller 
 
 
 ### 5) Verify the installation 
@@ -141,7 +145,7 @@ Define a policy:
 
 ```
 $ vault policy write my-app-secrets - <<EOF
-path "secrets/data/my-app/dev/*" {
+path "secrets/data/my-app/dev/\*" {
   capabilities = ["read" , "list"]
 }
 EOF
@@ -157,8 +161,9 @@ $ vault write auth/kubernetes/role/my-app \
     ttl=24h
 ```
 
+In step 3(1) we gave the resource a name. We will now use this name to extract the JWT for the `ServiceAccount`.  
 To set up the auth method in Vault using the service account name that was used when initially installed. We need to extract the JWT token from the secret.
-Let's find out the name of the secret it is the mountable secret with the *-token-* name
+Let's find out the name of the secret it is the mountable secret with the vault-token-\* name
 
 ```
 $ oc describe  sa vault -n hashicorp-vault         
