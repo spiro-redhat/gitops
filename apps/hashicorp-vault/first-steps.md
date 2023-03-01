@@ -5,7 +5,7 @@ The [State of DevOps report 2023](https://www.puppet.com/resources/state-of-plat
 
 This blog demonstrates with exmaples how a self-serving encryption service may be incorporated as a platform service within your organisation or enterprise. The design goal is to address varied governance concerns across business units within the organsation through the imposition of boundaries that  isolate vaults from one another whilst remaining within the same overall deployment. By creating low resistance interaction between platform and stream aligned teams, the cognitive load of both is reduced therby permitting teams to focus on what matters most, the business.  
 
-[Hashicorp Vault](https://www.hashicorp.com/products/vault) is the use case. The integration section below will show how it can be integrated into OpenShift to provide encryption as a service to your workloads. The examples in this article are for demonstrated purposes only and are in no way assuring relevance for any context. They should however be sufficiently adaptable to meet many businss scenarios. 
+[Hashicorp Vault](https://www.hashicorp.com/products/vault) is the use case. The integration section below will show how it can be integrated into [OpenShift Container Platform](https://www.redhat.com/en/resources/red-hat-openshift-overview) from Red Hat to provide encryption as a service to your workloads. The examples in this article are for demonstrated purposes only and are in no way assuring relevance for any context. They should however be sufficiently adaptable to meet many businss scenarios. 
 
 Enterprise Vault introduced the concept of namespaces, it provides a means to create vaults within vault, each having their own encryption engine and storage backends. We are going to use this feature to create a number of namespaces. However, the OCP namespace in Vault, dedicated to workloads running in OpenShift is the sole focus. The others are purely illustrative, to demonstrate what a self serving capability can achieve.   
 
@@ -21,6 +21,7 @@ To follow this you will need to the following:
 * An OpenShift account with sufficient permissions to install the agent and `ClusterRoleBindings`
 
 ## Vault CLI config 
+
 (i) Ensure that you have the Vault CLI installed and that you connect to the Vault server. Set up the following environment variables. 
 
 ```
@@ -39,6 +40,7 @@ $ export VAULT_NAMESPACE="admin/ocp"
 Let's start!  
 
 ## The big picture 
+
 ![The big picture](img/big-picture-blog.png) 
 
 
@@ -69,7 +71,7 @@ Labels:              app.kubernetes.io/instance=vault
 Annotations:         meta.helm.sh/release-name: vault
                      meta.helm.sh/release-namespace: hashicorp-vault
 Image pull secrets:  vault-dockercfg-flp6c
-Mountable secrets:   $${\color{red}vault-token-x6hrv}$$
+Mountable secrets:   vault-token-x6hrv
                      vault-dockercfg-flp6c
 Tokens:              vault-token-4ltc7
                      vault-token-x6hrv
@@ -79,7 +81,7 @@ Events:              <none>
 (iii) Place the JWT token for the secret vault-token-x6hrv into an environment variable. Use the `oc` command. 
 
 ```
-$ export JWT_TOKEN=$(oc get secret $${\color{red}vault-token-x6hrv}$$ -n hashicorp-vault -o jsonpath='{.data.token}' | base64 -d)
+$ export JWT_TOKEN=$(oc get secret vault-token-x6hrv -n hashicorp-vault -o jsonpath='{.data.token}' | base64 -d)
 ```
 
 (iv) Add the Kubernetes API CA and the Kubernetes API endpoint to some environment variables. Use the `oc` command. 
