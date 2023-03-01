@@ -8,7 +8,7 @@
 oc create namespace hashicorp-vault 
 ```
 
-(ii) Head over to the OpenShift developer console 
+## Head over to the OpenShift developer console 
 
 ![](img/step1.png) 
 
