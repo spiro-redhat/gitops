@@ -17,7 +17,7 @@ oc create namespace hashicorp-vault
  ![](img/two.png )  select the link 
 
 
-##Install the Vault via Helm
+## Install the Vault via Helm
 
 ![](img/step2.png) 
 
