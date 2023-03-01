@@ -48,7 +48,7 @@ Let's start!
 
 ![Install the vault agent in OpenShift](img/one.png)  *Install the Vault Agent in OpenShift* 
 
-Refer to [install agent guid](install-agent.md) 
+Refer to the [install agent guide](install-agent.md) in this repository  
 
 
 ![Setting up the Kubernetes Auth method](img/two.png)  *Setting up the Kubernetes Auth method*
