@@ -46,12 +46,12 @@ Let's start!
 
 
 
-![Install the vault agent in OpenShift](img/one.png)  ### Install the Vault Agent in OpenShift 
+![Install the vault agent in OpenShift](img/one.png)  *Install the Vault Agent in OpenShift* 
 
 Refer to [install agent guid](install-agent.md) 
 
 
-![Setting up the Kubernetes Auth method](img/two.png)  ### Setting up the Kubernetes Auth method 
+![Setting up the Kubernetes Auth method](img/two.png)  *Setting up the Kubernetes Auth method*
 
 (i) Enable the Kubernetes Auth engine in Vault. Use the Vault CLI. 
 
@@ -107,7 +107,7 @@ $ vault write auth/kubernetes/config \
 $ vault read auth/kubernetes/config
 ```
 
-![Creating secrets](img/three.png) * Create the secrets * 
+![Creating secrets](img/three.png) *Create the secrets* 
 
 
 
@@ -131,7 +131,7 @@ $ vault kv get secrets/my-app/dev/contact
 $ vault kv get secrets/my-app/dev/index 
 ```
 
-![Create a policy](img/four.png)  * Create a policy *  
+![Create a policy](img/four.png)  *Create a policy*  
 
 (i) Create a policy that defines access to the secrets. Use the Vault CLI 
 
@@ -144,7 +144,7 @@ path "secrets/data/my-app/dev/\*" {
 EOF
 ```
 
-![Create a role](img/five.png) * Create a role *  
+![Create a role](img/five.png) *Create a role*  
 
 (i) A role associates a `ServiceAccount` and `NameSpaces` to a policy. Use the Vault CLI. 
 
@@ -158,7 +158,7 @@ $ vault write auth/kubernetes/role/my-app \
 ```
 
 
-![Create a role](img/six.png)  * OpenShift Deployment * 
+![Create a role](img/six.png)  *OpenShift Deployment* 
 
 
 (i) Create templates to be rendered into html files containing the secrets from Vault. Use a text editor for this. 
