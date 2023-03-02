@@ -2,7 +2,8 @@
 
 The Vault Command Line Interface (CLI) allows you to interact with Vault servers.
 
-Let's start with some basic vault commands, running them in the "Vault CLI" tab on the left.
+
+## Basic commands
 
 Check the version of Vault running on your machine:
 
@@ -30,7 +31,7 @@ Scroll back up to get a feeling for how you would read secrets from Vault.
 
 
 
-*Your First Secret*
+##Your First Secret
 
  https://www.vaultproject.io/docs/concepts/dev-server/  For more on Dev mode 
  https://www.vaultproject.io/docs/secrets/kv/kv-v2/  For info about kv2

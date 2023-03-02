@@ -1,22 +1,15 @@
-Install the Hashicorp vault repo via GitOps. We are going to be using the `Namespace` called `hashicorp-vault`. Once that is installed you may install Vault via the OCP Dev Console. Be sure to enable Dev mode for non-prod ease of getting started.  Check that both the Vault and the Agent pods have started with `oc get po -n hashicorp-vault` 
+Install the Hashicorp Vault helm repo via GitOps or use the one already installed into OpenShift. 
+We are going to be using a `Namespace` called `hashicorp-vault`. Once that is installed you may install Vault via the OCP Dev Console. 
 
 
-```
-apiVersion: helm.openshift.io/v1beta1
-kind: HelmChartRepository
-metadata:
-  name: hashicorp
-spec:
- # optional name that might be used by console
-  name: HashiCorp Helm Charts
-  connectionConfig:
-    url: https://helm.releases.hashicorp.com
-```
+
+
+
 
 Setting up CLI 
 
-export VAULT_ADDR="https://spi-hashi-cluster-0-public-vault-93264274.0c3c1a21.z1.hashicorp.cloud:8200"
-export VAULT_NAMESPACE="admin"
+export VAULT_ADDR="https://vaut-address:8200"
+export VAULT_NAMESPACE="admin" # Only require
 export VAULT_TOKEN="hvs.CAESIPBClWKCz0wCmh3ZQwtieNyi5RV4kTd6CfPvdQ43kXPFGicKImh2cy41T0ZVSVpGRzNZUHVDTlMwUmVLd3F4TzguWjVtQW0QmXI"
 
 vault auth list 
