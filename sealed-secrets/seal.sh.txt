@@ -1,8 +1,0 @@
-oc create --dry-run=client -o json \
-secret generic config-bundle \
---from-file config.yaml=config.yaml \
--n my-namespace \
-| kubeseal -o yaml \
---controller-name sealed-secrets \
---controller-namespace sealed-secrets \
-> config-bundle-secret.yaml

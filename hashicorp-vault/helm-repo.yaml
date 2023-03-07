@@ -1,9 +1,0 @@
-apiVersion: helm.openshift.io/v1beta1
-kind: HelmChartRepository
-metadata:
-  name: hashicorp
-spec:
- # optional name that might be used by console
-  name: HashiCorp Helm Charts
-  connectionConfig:
-    url: https://helm.releases.hashicorp.com
