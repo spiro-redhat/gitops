@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: nginx
+      annotations: 
+        vault.hashicorp.com/namespace: admin/ocp
+        vault.hashicorp.com/service: https://spi-hashi-cluster-0-public-vault-ddee248c.f2dac3f1.z1.hashicorp.cloud:8200
+        vault.hashicorp.com/agent-inject: 'true'
+        #vault.hashicorp.com/agent-inject-status: 'update'
+        vault.hashicorp.com/agent-pre-populate-only: 'true'
+        vault.hashicorp.com/auth-path: 'auth/kubernetes'
+        vault.hashicorp.com/role: 'my-app'    
+        # this is a secret stored in vault 
+        vault.hashicorp.com/agent-inject-secret-index.html: 'secrets/my-app/dev/index'
+        vault.hashicorp.com/agent-inject-secret-contact.html: 'secrets/my-app/dev/contact'
+        # this path to be rendered (arbitary path)
+        vault.hashicorp.com/secret-volume-path-index.html: /usr/share/nginx/html
+        vault.hashicorp.com/secret-volume-path-contact.html: /usr/share/nginx/html
+        # this is the k8s secret that contains the template that tells the vault agent how to render the secret on line 23
+        vault.hashicorp.com/agent-extra-secret: vault-agent-template-web-pages 
+        # this tells vault where to load the template so it can get rendered 
+        vault.hashicorp.com/agent-inject-template-file-contact.html: /vault/custom/contact.html.ctmpl
+        vault.hashicorp.com/agent-inject-template-file-index.html: /vault/custom/index.html.ctmpl
+    spec:
+      serviceAccountName: hello-world-app
+      containers:
+      - image: nginxinc/nginx-unprivileged:latest
+        name: nginx
+        resources:
+          requests:
+            memory: "32Mi"
+            cpu: "250m"
+          limits: 
+            memory: "64Mi"
+            cpu: "250m"
+        ports:
+        - containerPort: 8080
+          name: web
+        volumeMounts:
+          - name: config-vol
+            mountPath: /etc/nginx/
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 2
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 2
+          periodSeconds: 10
+          timeoutSeconds: 1
+          successThreshold: 1
+          failureThreshold: 3
+      volumes:
+        - name: config-vol
+          configMap:
+            name: nginx-config
+            items:
+              - key: nginx.conf
+                path: nginx.conf
+              

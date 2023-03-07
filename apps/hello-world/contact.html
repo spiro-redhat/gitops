@@ -1,0 +1,9 @@
+{{- with secret "secrets/data/my-app/dev/contact" -}}
+<html> 
+<head></head>
+<body>
+    <h1>{{ .Data.data.title }} </h1>
+    Call us on {{ .Data.data.telephone }}
+</body>
+</html> 
+{{- end -}}

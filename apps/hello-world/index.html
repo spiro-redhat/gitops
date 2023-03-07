@@ -1,0 +1,9 @@
+{{- with secret "secrets/data/my-app/dev/index" -}}
+<html> 
+<head></head>
+<body>
+    <h1>{{ .Data.data.title }} </h1>
+    The secret is {{ .Data.data.password }}
+</body>
+</html> 
+{{- end -}}

@@ -1,0 +1,11 @@
+oc get secret -n sealed-secrets -l 
+sealedsecrets.bitnami.com/sealed-secrets-key -o yaml >/tmp/ss-cert
+
+kubeseal --recovery-unseal --recovery-private-key /tmp/ss-cert < 
+config-bundle-secret.yaml \
+| jq -r '.data."config.yaml"' | base64 --decode > config.yaml
+
+rm /tmp/ss-cert
+
+
+

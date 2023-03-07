@@ -1,0 +1,26 @@
+apiVersion: logging.openshift.io/v1
+kind: ClusterLogForwarder
+metadata:
+  annotations:
+      argocd.argoproj.io/sync-wave: "20"
+  name: instance
+  namespace: openshift-logging
+spec:
+  inputs:
+    - name: audit
+  outputs:
+    - name: audit-logs
+      secret:
+        name: elasticsearch
+      syslog:
+        rfc: RFC5424
+      type: elasticsearch
+  pipelines:
+    - inputRefs:
+        - audit
+        - application 
+        - infrastructure 
+      name: enable-default-log-store
+      outputRefs:
+        - default
+   
