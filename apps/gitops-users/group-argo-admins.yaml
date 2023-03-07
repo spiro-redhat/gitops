@@ -16,7 +16,7 @@ data:
     g, system:cluster-admins, role:admin
     g, cluster-admins, role:admin
     g, argo-admins, role:admin 
-    p, role:argo-admins, applications, *, */*, allow
+    p, role:admin, applications, *, */*, allow
   scopes: '[groups]'
    
    
