@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-rbac-cm
+  namespace: openshift-gitops
+data:
+  policy.default: role:readonly
+  policy.csv: |
+    g, system:cluster-admins, role:admin
+    g, cluster-admins, role:admin
+    g, argo-admins, role:admin 
+    p, role:admin, applications, *, default/*, allow
+    p, role:admin, applicationsets, *, default/*, allow
+    p, role:admin, get, create, update, delete, sync, override, default/*, allow
+  scopes: '[groups]'
+   
