@@ -5,15 +5,18 @@ metadata:
 users:
   - admin
 ---
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
+apiVersion: v1
+kind: ConfigMap
 metadata:
-  name: argo-admins
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: edit
-subjects:
-- apiGroup: rbac.authorization.k8s.io
-  kind: Group
-  name: argo-admins
+  name: argocd-rbac-cm
+  namespace: openshift-gitops
+data:
+  policy.default: role:readonly
+  policy.csv: |
+    g, system:cluster-admins, role:admin
+    g, cluster-admins, role:admin
+    g, argo-admins, role:admin 
+    p, role:argo-admins, applications, *, */*, allow
+  scopes: '[groups]'
+   
+   
