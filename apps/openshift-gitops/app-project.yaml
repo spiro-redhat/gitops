@@ -50,7 +50,7 @@ spec:
 
   roles:
   # A role which provides read-only access to all applications in the project
-  - name: read-only
+  - name: readonly-role
     description: Read-only privileges to my-project
     policies:
     - p, proj:my-project:read-only, applications, get, my-project/*, allow
@@ -59,7 +59,7 @@ spec:
 
   # A role which provides sync privileges to only the guestbook-dev application, e.g. to provide
   # sync privileges to a CI system
-  - name: ci-role
+  - name: admin-role
     description: Sync privileges to my-project
     policies:
     - p, proj:my-project:ci-role, applications, sync, my-project/*, allow
