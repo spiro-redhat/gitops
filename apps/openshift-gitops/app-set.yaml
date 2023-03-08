@@ -1,7 +1,10 @@
+
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: appset
+  annotations:
+    argocd.argoproj.io/sync-wave: "20"
   namespace: openshift-gitops
 spec:
   generators:
@@ -14,7 +17,7 @@ spec:
     metadata:
       name: '{{path.basename}}'
     spec:
-      project: default
+      project: my-project
       source:
         repoURL: https://github.com/spiro-redhat/gitops.git
         targetRevision: main
@@ -23,6 +26,7 @@ spec:
         name: in-cluster
         namespace: '{{path.basename}}'
       syncPolicy:
-        automated: {}
+        # Determines whether the controller will delete Applications when an ApplicationSet is deleted.
+        preserveResourcesOnDeletion: false
         syncOptions:
           - CreateNamespace=true

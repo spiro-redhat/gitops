@@ -1,8 +1,8 @@
 apiVersion: user.openshift.io/v1
 kind: Group
 metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
   name: argo-admins
 users:
-  - admin
-
-   
+  - hatter
