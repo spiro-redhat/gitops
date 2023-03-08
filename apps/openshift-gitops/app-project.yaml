@@ -71,19 +71,4 @@ spec:
     #- iat: 1535390316
 
   # Sync windows restrict when Applications may be synced. https://argo-cd.readthedocs.io/en/stable/user-guide/sync_windows/
-  syncWindows:
-  - kind: allow
-    clusters:
-      - in-cluster
-    manualSync: true
-  - kind: deny
-    schedule: '0 22 * * *'
-    duration: 1h
-    namespaces:
-      - default
-  - kind: allow
-    schedule: '0 23 * * *'
-    duration: 1h
-    clusters:
-      - cluster1
----
+  
