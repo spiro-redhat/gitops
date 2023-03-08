@@ -24,7 +24,7 @@ spec:
     name: in-cluster
 
   # Deny all cluster-scoped resources from being created, except for Namespace
-  #clusterResourceWhitelist:
+  clusterResourceWhitelist:
   - group: '*'
     kind: '*'
 
