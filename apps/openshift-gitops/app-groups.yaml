@@ -6,3 +6,4 @@ metadata:
   name: argo-admins
 users:
   - hatter
+  - admin

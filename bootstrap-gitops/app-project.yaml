@@ -1,10 +1,17 @@
-
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: my-project
+  namespace: openshift-gitops
+  # Finalizer that ensures that project is not deleted until it is not referenced by any application
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec: {}
+---
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: appset
-  annotations:
-    argocd.argoproj.io/sync-wave: "20"
   namespace: openshift-gitops
 spec:
   generators:
