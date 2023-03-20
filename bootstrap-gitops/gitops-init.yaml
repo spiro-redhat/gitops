@@ -102,3 +102,4 @@ spec:
         preserveResourcesOnDeletion: false
         syncOptions:
           - CreateNamespace=true
+          - ApplyOutOfSyncOnly=true
