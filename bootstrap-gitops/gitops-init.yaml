@@ -23,7 +23,6 @@ spec:
     server: https://kubernetes.default.svc
     name: in-cluster
 
-  # Deny all cluster-scoped resources from being created, except for Namespace
   clusterResourceWhitelist:
   - group: '*'
     kind: '*'
@@ -37,10 +36,9 @@ spec:
   #- group: ''
   #  kind: NetworkPolicy
 
-  # Deny all namespaced-scoped resources from being created, except for Deployment and StatefulSet
-  #namespaceResourceWhitelist:
-  #- group: 'apps'
-  #  kind: Deployment
+  namespaceResourceWhitelist:
+   - group: '*'
+     kind: '*'
   #- group: 'apps'
   #  kind: StatefulSet
 
