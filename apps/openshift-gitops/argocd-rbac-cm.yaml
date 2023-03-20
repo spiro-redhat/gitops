@@ -6,12 +6,6 @@ metadata:
   labels:
     app.kubernetes.io/name: argocd-rbac-cm
     app.kubernetes.io/part-of: argocd
-  ownerReferences:
-    - apiVersion: argoproj.io/v1alpha1
-      kind: ArgoCD
-      name: openshift-gitops
-      controller: true
-      blockOwnerDeletion: true
   data:
   policy.csv: |
     g, system:cluster-admins, role:admin
