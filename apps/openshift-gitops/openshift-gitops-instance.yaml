@@ -9,7 +9,7 @@ metadata:
   ownerReferences:
   - apiVersion: pipelines.openshift.io/v1alpha1
     blockOwnerDeletion: true
-    controller: true
+    controller: false
     kind: GitopsService
     name: cluster
     uid: df3bf48e-3a18-467b-ae76-56269ba621bc

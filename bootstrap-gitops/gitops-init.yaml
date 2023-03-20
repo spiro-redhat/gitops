@@ -74,7 +74,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: appset
+  name: my-appset
   namespace: openshift-gitops
 spec:
   generators:
