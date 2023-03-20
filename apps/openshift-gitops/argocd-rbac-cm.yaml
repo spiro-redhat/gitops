@@ -10,7 +10,7 @@ metadata:
     - apiVersion: argoproj.io/v1alpha1
       kind: ArgoCD
       name: openshift-gitops
-      controller: false
+      controller: true
       blockOwnerDeletion: true
   data:
   policy.csv: |
