@@ -13,4 +13,4 @@ spec:
   name: cluster-logging
   source: redhat-operators
   sourceNamespace: openshift-marketplace
-  startingCSV: cluster-logging.v5.6.2
+  startingCSV: cluster-logging.v5.6.3
