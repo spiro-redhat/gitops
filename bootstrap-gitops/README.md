@@ -12,6 +12,6 @@ oc edit argocd openshift-gitops -n openshift-gitops
 
 ```
 rbac:
-    policy: 'g, argo-admins role:my-project-admin'
+    policy: 'g, argo-admins role:admin'
     scopes: '[groups]'
 ```
