@@ -15,7 +15,7 @@ spec:
   name: elasticsearch-operator
   source: redhat-operators
   sourceNamespace: openshift-marketplace
-  startingCSV: elasticsearch-operator.v5.6.2
+  startingCSV: elasticsearch-operator.v5.6.3
 ---
 apiVersion: operators.coreos.com/v1
 kind: OperatorGroup

@@ -96,6 +96,8 @@ spec:
         name: in-cluster
         namespace: '{{path.basename}}'
       syncPolicy:
+        automated: 
+          prune: true
         # Determines whether the controller will delete Applications when an ApplicationSet is deleted.
         preserveResourcesOnDeletion: false
         syncOptions:
