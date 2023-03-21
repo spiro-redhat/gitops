@@ -46,6 +46,15 @@ spec:
   orphanedResources:
     warn: false
 
+  roles:
+    - name: project-admins
+      policies:
+        - p, proj:my-project:project-admins, applications, , my-project/, allow
+        - p, proj:my-project:project-admins, repositories, , my-project/, allow
+        - p, proj:my-project:project-admins, applicationsets, , my-project/, allow
+        - p, proj:my-project:devops-role, , , my-project/, allow
+      groups:
+        - argo-admins
   #roles:
   ## A role which provides read-only access to all applications in the project
   #- name: my-project-readonly
