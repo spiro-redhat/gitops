@@ -22,4 +22,5 @@ spec:
       image: registry.access.redhat.com/ubi9/ubi
       script: |
          echo $(params.TERM) > $(workspaces.cache.path)/README.md
+         cat $(workspaces.cache.path)/README.md
       
