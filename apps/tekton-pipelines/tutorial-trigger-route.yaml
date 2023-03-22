@@ -1,0 +1,21 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: tutorial-trigger-route
+  namespace: tekton-pipelines
+  labels:
+    app.kubernetes.io/instance: tekton-pipelines
+    app.kubernetes.io/managed-by: EventListener
+    app.kubernetes.io/part-of: Triggers
+    eventlistener: tutorial-eventlistener
+spec:
+  to:
+    kind: Service
+    name: el-tutorial-eventlistener
+    weight: 100
+  port:
+    targetPort: http-listener
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None
