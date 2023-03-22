@@ -51,7 +51,6 @@ metadata:
     app.kubernetes.io/instance: default
     app.kubernetes.io/part-of: tekton-dashboard
   name: tekton-dashboard
-  namespace: tekton-pipelines
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
@@ -60,7 +59,6 @@ metadata:
     app.kubernetes.io/instance: default
     app.kubernetes.io/part-of: tekton-dashboard
   name: tekton-dashboard-info
-  namespace: tekton-pipelines
 rules:
   - apiGroups:
       - ""
@@ -245,7 +243,6 @@ metadata:
     app.kubernetes.io/instance: default
     app.kubernetes.io/part-of: tekton-dashboard
   name: tekton-dashboard-info
-  namespace: tekton-pipelines
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -271,7 +268,6 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: tekton-dashboard
-    namespace: tekton-pipelines
 ---
 apiVersion: v1
 data:
@@ -282,7 +278,6 @@ metadata:
     app.kubernetes.io/instance: default
     app.kubernetes.io/part-of: tekton-dashboard
   name: dashboard-info
-  namespace: tekton-pipelines
 ---
 apiVersion: v1
 kind: Service
@@ -297,7 +292,6 @@ metadata:
     dashboard.tekton.dev/release: v0.28.0
     version: v0.28.0
   name: tekton-dashboard
-  namespace: tekton-pipelines
 spec:
   ports:
     - name: http
@@ -310,7 +304,19 @@ spec:
     app.kubernetes.io/name: dashboard
     app.kubernetes.io/part-of: tekton-dashboard
 ---
-apiVersion: apps/v1
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: tekton-dashboard
+spec:
+  port:
+    targetPort: 9097
+  to:
+    kind: Service
+    name: tekton-dashboard
+
+---
+apiV4ersion: apps/v1
 kind: Deployment
 metadata:
   labels:
@@ -323,7 +329,6 @@ metadata:
     dashboard.tekton.dev/release: v0.28.0
     version: v0.28.0
   name: tekton-dashboard
-  namespace: tekton-pipelines
 spec:
   replicas: 1
   selector:
@@ -361,6 +366,13 @@ spec:
                 fieldRef:
                   fieldPath: metadata.namespace
           image: gcr.io/tekton-releases/github.com/tektoncd/dashboard/cmd/dashboard:v0.28.0@sha256:5ac6044647175e9bb2b0beed19fd34353bb18156faab70d0a789a2b0a7ba8092
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
           livenessProbe:
             httpGet:
               path: /health
@@ -379,8 +391,6 @@ spec:
         runAsUser: 65532
       serviceAccountName: tekton-dashboard
       volumes: []
-
----
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -398,4 +408,4 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: tekton-dashboard
-    namespace: tekton-pipelines
+    

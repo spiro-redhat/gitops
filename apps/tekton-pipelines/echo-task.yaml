@@ -8,6 +8,18 @@ spec:
   workspaces:
     - name: cache
   params:
+    - name: GIT_REVISION
+      type: string
+    - name: GIT_COMMIT_MESSAGE 
+      type: string
+    - name: GIT_REPO_URL
+      type: string
+    - name: GIT_REPO_NAME
+      type: string
+    - name: CONTENT_TYPE
+      type: string
+    - name: PUSHED_BY
+      type: string
     - name: TERM
       type: string
       description: The term to echo
