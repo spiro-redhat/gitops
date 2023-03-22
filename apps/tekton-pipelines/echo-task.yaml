@@ -26,6 +26,6 @@ spec:
       image: registry.access.redhat.com/ubi9/ubi
       script: |
          echo $(params.TERM) > $(workspaces.cache.path)/README.md
-         echo $(params.GIT_REF) > $(workspaces.cache.path)/README.md
+         echo $(params.GIT_REPO) > $(workspaces.cache.path)/README.md
          cat $(workspaces.cache.path)/README.md
       
