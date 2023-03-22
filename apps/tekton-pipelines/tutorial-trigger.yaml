@@ -18,7 +18,7 @@ spec:
           tekton.dev/pipeline: tutorial-pipeline 
         name: tutorial-pipeline-webhook-$(uid)
       spec:
-        serviceAccountName: tutorial-github-trigger-sa
+        serviceAccountName: tekton-github-triggers
         params: 
           - name: GIT_REPO
             value: $(tt.params.git-repo-url)
@@ -52,7 +52,7 @@ kind: EventListener
 metadata:
   name: tutorial-eventlistener 
 spec:
-  serviceAccountName: tutorial-github-trigger-sa
+  serviceAccountName: tekton-github-triggers
   triggers:
     - name: github-trigger
       interceptors: 
