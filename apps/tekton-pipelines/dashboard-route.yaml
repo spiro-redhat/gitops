@@ -9,9 +9,6 @@ metadata:
     app.kubernetes.io/instance: tekton-pipelines
     app.kubernetes.io/name: dashboard
     app.kubernetes.io/part-of: tekton-dashboard
-    app.kubernetes.io/version: v0.34.0
-    dashboard.tekton.dev/release: v0.34.0
-    version: v0.34.0
 spec:
   to:
     kind: Service
