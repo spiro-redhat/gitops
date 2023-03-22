@@ -1,0 +1,61 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: TriggerTemplate
+metadata:
+  name: tutorial-triggertemplate
+spec:
+  params:
+    - name: git-revision 
+    - name: git-commit-message
+    - name: git-repo-url
+    - name: git-repo-name
+    - name: content-type
+    - name: pusher-name
+  resourcetemplates: 
+    - apiVersion: tekton.dev/v1beta1
+      kind: PipelineRun 
+      metadata: 
+        labels: 
+          tekton.dev/pipeline: tutorial-pipeline 
+        name: tutorial-pipeline-webhook-$(uid)
+      spec:
+        serviceAccountName: tutorial-github-trigger-sa
+        params: 
+          - name: GIT_REPO
+            value: $(tt.params.git-repo-url)
+          - name: GIT_REF
+            value: $(tt.params.git-revision) 
+        pipelineRef: 
+        name: tutorial-pipeline
+        workspaces: 
+          - name: pipeline-cache
+            volumeClaimTemplate:
+             spec:
+                accessModes:
+                   - ReadWriteOnce
+                resources:
+                  requests:
+                     storage: 100Mi
+---
+apiVersion: triggers.tekton.dev/v1alpha1 
+kind: TriggerBinding
+metadata:
+  name: tutorial-triggerbinding 
+spec:
+  params:
+    - name: git-repo-url
+      value: $(body.repository.clone_url) 
+    - name: git-revision
+      value: $(body.after)
+---
+apiVersion: triggers.tekton.dev/v1beta1 
+kind: EventListener
+metadata:
+  name: tutorial-eventlistener 
+spec:
+  serviceAccountName: tutorial-github-trigger-sa
+  triggers:
+    - bindings:
+        - ref: tutorial-triggerbinding 
+      template:
+        ref: tutorial-triggertemplate
+---
