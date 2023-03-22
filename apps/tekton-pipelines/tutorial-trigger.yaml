@@ -16,16 +16,16 @@ spec:
       metadata: 
         labels: 
           tekton.dev/pipeline: tutorial-pipeline 
-        name: tutorial-pipeline-webhook-$(uid)
+        generateName: tutorial-pipeline-webhook-
       spec:
+        pipelineRef: 
+          name: tutorial-pipeline
         serviceAccountName: tekton-github-triggers
         params: 
           - name: GIT_REPO
             value: $(tt.params.git-repo-url)
           - name: GIT_REF
             value: $(tt.params.git-revision) 
-        pipelineRef: 
-        name: tutorial-pipeline
         workspaces: 
           - name: pipeline-cache
             volumeClaimTemplate:
