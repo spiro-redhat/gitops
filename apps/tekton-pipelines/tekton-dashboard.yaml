@@ -3,7 +3,7 @@ kind: CustomResourceDefinition
 metadata:
   labels:
     app.kubernetes.io/component: dashboard
-    app.kubernetes.io/instance: default
+    app.kubernetes.io/instance: tekton-dashboard
     app.kubernetes.io/part-of: tekton-dashboard
   name: extensions.dashboard.tekton.dev
 spec:
@@ -48,7 +48,7 @@ kind: ServiceAccount
 metadata:
   labels:
     app.kubernetes.io/component: dashboard
-    app.kubernetes.io/instance: default
+    app.kubernetes.io/instance: tekton-dashboard
     app.kubernetes.io/part-of: tekton-dashboard
   name: tekton-dashboard
 ---
@@ -56,7 +56,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   labels:
-    app.kubernetes.io/instance: default
+    app.kubernetes.io/instance: tekton-dashboard
     app.kubernetes.io/part-of: tekton-dashboard
   name: tekton-dashboard-info
 rules:
@@ -74,7 +74,7 @@ kind: ClusterRole
 metadata:
   labels:
     app.kubernetes.io/component: dashboard
-    app.kubernetes.io/instance: default
+    app.kubernetes.io/instance: tekton-dashboard
     app.kubernetes.io/part-of: tekton-dashboard
   name: tekton-dashboard-backend
 rules:
@@ -152,7 +152,7 @@ kind: ClusterRole
 metadata:
   labels:
     app.kubernetes.io/component: dashboard
-    app.kubernetes.io/instance: default
+    app.kubernetes.io/instance: tekton-dashboard
     app.kubernetes.io/part-of: tekton-dashboard
   name: tekton-dashboard-tenant
 rules:
@@ -240,7 +240,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   labels:
-    app.kubernetes.io/instance: default
+    app.kubernetes.io/instance: tekton-dashboard
     app.kubernetes.io/part-of: tekton-dashboard
   name: tekton-dashboard-info
 roleRef:
@@ -257,7 +257,7 @@ kind: ClusterRoleBinding
 metadata:
   labels:
     app.kubernetes.io/component: dashboard
-    app.kubernetes.io/instance: default
+    app.kubernetes.io/instance: tekton-dashboard
     app.kubernetes.io/part-of: tekton-dashboard
     rbac.dashboard.tekton.dev/subject: tekton-dashboard
   name: tekton-dashboard-backend
@@ -275,7 +275,7 @@ data:
 kind: ConfigMap
 metadata:
   labels:
-    app.kubernetes.io/instance: default
+    app.kubernetes.io/instance: tekton-dashboard
     app.kubernetes.io/part-of: tekton-dashboard
   name: dashboard-info
 ---
@@ -285,7 +285,7 @@ metadata:
   labels:
     app: tekton-dashboard
     app.kubernetes.io/component: dashboard
-    app.kubernetes.io/instance: default
+    app.kubernetes.io/instance: tekton-dashboard
     app.kubernetes.io/name: dashboard
     app.kubernetes.io/part-of: tekton-dashboard
     app.kubernetes.io/version: v0.28.0
@@ -300,21 +300,31 @@ spec:
       targetPort: 9097
   selector:
     app.kubernetes.io/component: dashboard
-    app.kubernetes.io/instance: default
+    app.kubernetes.io/instance: tekton-dashboard
     app.kubernetes.io/name: dashboard
     app.kubernetes.io/part-of: tekton-dashboard
 ---
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
+  labels:
+    app: tekton-dashboard
+    app.kubernetes.io/component: dashboard
+    app.kubernetes.io/instance: tekton-pipelines
+    app.kubernetes.io/name: dashboard
+    app.kubernetes.io/part-of: tekton-dashboard
   name: tekton-dashboard
 spec:
   port:
-    targetPort: 9097
+    targetPort: http
   to:
     kind: Service
     name: tekton-dashboard
-
+    weight: 100 
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: None
+    wildcardPolicy: None
 ---
 apiV4ersion: apps/v1
 kind: Deployment
@@ -322,7 +332,7 @@ metadata:
   labels:
     app: tekton-dashboard
     app.kubernetes.io/component: dashboard
-    app.kubernetes.io/instance: default
+    app.kubernetes.io/instance: tekton-dashboard
     app.kubernetes.io/name: dashboard
     app.kubernetes.io/part-of: tekton-dashboard
     app.kubernetes.io/version: v0.28.0
@@ -334,7 +344,7 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/component: dashboard
-      app.kubernetes.io/instance: default
+      app.kubernetes.io/instance: tekton-dashboard
       app.kubernetes.io/name: dashboard
       app.kubernetes.io/part-of: tekton-dashboard
   template:
@@ -342,7 +352,7 @@ spec:
       labels:
         app: tekton-dashboard
         app.kubernetes.io/component: dashboard
-        app.kubernetes.io/instance: default
+        app.kubernetes.io/instance: tekton-dashboard
         app.kubernetes.io/name: dashboard
         app.kubernetes.io/part-of: tekton-dashboard
         app.kubernetes.io/version: v0.28.0
@@ -397,7 +407,7 @@ kind: ClusterRoleBinding
 metadata:
   labels:
     app.kubernetes.io/component: dashboard
-    app.kubernetes.io/instance: default
+    app.kubernetes.io/instance: tekton-dashboard
     app.kubernetes.io/part-of: tekton-dashboard
     rbac.dashboard.tekton.dev/subject: tekton-dashboard
   name: tekton-dashboard-tenant
