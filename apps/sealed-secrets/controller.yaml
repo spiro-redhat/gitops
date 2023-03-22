@@ -98,13 +98,13 @@ spec:
         - controller
         env: []
         image: docker.io/bitnami/sealed-secrets-controller:v0.18.1
-        resources:
-          requests:
-            memory: "256Mi"
-            cpu: "750m"
-          limits:
-            memory: "512Mi"
-            cpu: "1000m"
+        #resources:
+        #  requests:
+        #    memory: "256Mi"
+        #    cpu: "750m"
+        #  limits:
+        #    memory: "512Mi"
+        #    cpu: "1000m"
         imagePullPolicy: Always
         livenessProbe:
           httpGet:
