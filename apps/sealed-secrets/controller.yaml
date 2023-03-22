@@ -6,6 +6,7 @@ metadata:
   labels:
     name: sealed-secrets-service-proxier
   name: sealed-secrets-service-proxier
+  namespace: sealed-secrets
 rules:
 - apiGroups:
   - ""
@@ -74,6 +75,7 @@ metadata:
   labels:
     name: sealed-secrets-controller
   name: sealed-secrets-controller
+  namespace: sealed-secrets
 spec:
   minReadySeconds: 30
   replicas: 1
@@ -98,13 +100,6 @@ spec:
         - controller
         env: []
         image: docker.io/bitnami/sealed-secrets-controller:v0.18.1
-        #resources:
-        #  requests:
-        #    memory: "256Mi"
-        #    cpu: "750m"
-        #  limits:
-        #    memory: "512Mi"
-        #    cpu: "1000m"
         imagePullPolicy: Always
         livenessProbe:
           httpGet:
@@ -170,7 +165,7 @@ metadata:
   labels:
     name: sealed-secrets-controller
   name: sealed-secrets-controller
-  
+  namespace: sealed-secrets
 spec:
   ports:
   - port: 8080
@@ -186,7 +181,7 @@ metadata:
   labels:
     name: sealed-secrets-key-admin
   name: sealed-secrets-key-admin
-  
+  namespace: sealed-secrets
 rules:
 - apiGroups:
   - ""
@@ -210,6 +205,7 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: sealed-secrets-controller
+  namespace: sealed-secrets
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -218,6 +214,7 @@ metadata:
   labels:
     name: sealed-secrets-controller
   name: sealed-secrets-controller
+  namespace: sealed-secrets
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
@@ -226,6 +223,7 @@ metadata:
   labels:
     name: sealed-secrets-service-proxier
   name: sealed-secrets-service-proxier
+  namespace: sealed-secrets
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -242,6 +240,7 @@ metadata:
   labels:
     name: sealed-secrets-controller
   name: sealed-secrets-controller
+  namespace: sealed-secrets
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -249,4 +248,5 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: sealed-secrets-controller
+  namespace: sealed-secrets
 
