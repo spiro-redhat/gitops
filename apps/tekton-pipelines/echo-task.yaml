@@ -8,17 +8,9 @@ spec:
   workspaces:
     - name: cache
   params:
-    - name: GIT_REVISION
+    - name: GIT_REF
       type: string
-    - name: GIT_COMMIT_MESSAGE 
-      type: string
-    - name: GIT_REPO_URL
-      type: string
-    - name: GIT_REPO_NAME
-      type: string
-    - name: CONTENT_TYPE
-      type: string
-    - name: PUSHED_BY
+    - name: GIT_REPO
       type: string
     - name: TERM
       type: string
@@ -33,6 +25,7 @@ spec:
     - name: redirect
       image: registry.access.redhat.com/ubi9/ubi
       script: |
+         echo $(params.TERM) > $(workspaces.cache.path)/README.md
          echo $(params.TERM) > $(workspaces.cache.path)/README.md
          cat $(workspaces.cache.path)/README.md
       
