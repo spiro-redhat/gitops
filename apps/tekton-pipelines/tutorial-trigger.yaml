@@ -36,8 +36,8 @@ spec:
                   requests:
                      storage: 100Mi
 ---
-apiVersion: triggers.tekton.dev/v1alpha1 
 kind: TriggerBinding
+apiVersion: triggers.tekton.dev/v1alpha1 
 metadata:
   name: tutorial-triggerbinding 
 spec:
