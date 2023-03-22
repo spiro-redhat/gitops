@@ -60,7 +60,6 @@ spec:
             eventTypes:
               - push
       bindings:
-        - name: tutorial-triggerbinding 
-          ref:  tutorial-triggerbinding
+        - ref:  tutorial-triggerbinding
       template:
         ref: tutorial-triggertemplate
