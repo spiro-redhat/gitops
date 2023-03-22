@@ -1,7 +1,7 @@
 kind: Namespace
 apiVersion: v1
 metadata:
-  name: cicd-pipelines
+  name: tekton-pipelines
   annotations:
     operator.tekton.dev/prune.schedule: "*/3 * * * *"
     ooperator.tekton.dev/prune.resources: "taskrun, pipelinerun"
