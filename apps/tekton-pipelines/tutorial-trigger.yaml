@@ -49,7 +49,7 @@ spec:
     - name: git-repo-name
       value: $(body.repository.name)
     - name: git-revision
-      value: $(body.after)
+      value: $(body.head_commit.id)
 ---
 apiVersion: triggers.tekton.dev/v1alpha1
 kind: EventListener
