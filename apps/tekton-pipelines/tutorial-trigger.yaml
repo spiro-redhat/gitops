@@ -54,8 +54,12 @@ metadata:
 spec:
   serviceAccountName: tutorial-github-trigger-sa
   triggers:
+    - name: github-trigger
+      interceptors: 
+        - github:
+            eventTypes: 
+              - push
     - bindings:
         - ref: tutorial-triggerbinding 
       template:
         ref: tutorial-triggertemplate
----
