@@ -54,7 +54,6 @@ metadata:
 spec:
   serviceAccountName: tekton-github-triggers
   triggers:
-    - name: github-trigger
       interceptors:
         - github:
             eventTypes:
