@@ -10,7 +10,9 @@ spec:
   params:
     - name: GIT_REF
       type: string
-    - name: GIT_REPO
+    - name: GIT_REPO_NAME
+      type: string
+    - name: GIT_REPO_URL
       type: string
     - name: TERM
       type: string
@@ -26,6 +28,7 @@ spec:
       image: registry.access.redhat.com/ubi9/ubi
       script: |
          echo $(params.TERM) > $(workspaces.cache.path)/README.md
-         echo $(params.GIT_REPO) > $(workspaces.cache.path)/README.md
+         echo $(params.GIT_REPO_NAME) >> $(workspaces.cache.path)/README.md
+         echo $(params.GIT_REPO_URL) >> $(workspaces.cache.path)/README.md
          cat $(workspaces.cache.path)/README.md
       

@@ -24,7 +24,7 @@ spec:
         params: 
           - name: GIT_REPO_URL
             value: $(tt.params.git-repo-url)
-          - name: GIT_REPO_URL
+          - name: GIT_REPO_NAME
             value: $(tt.params.git-repo-name)
           - name: GIT_REF
             value: $(tt.params.git-revision) 
