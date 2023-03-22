@@ -47,7 +47,7 @@ spec:
     - name: git-revision
       value: $(body.after)
 ---
-apiVersion: triggers.tekton.dev/v1alpha1 
+apiVersion: triggers.tekton.dev/v1alpha1
 kind: EventListener
 metadata:
   name: tutorial-eventlistener 
@@ -55,11 +55,12 @@ spec:
   serviceAccountName: tekton-github-triggers
   triggers:
     - name: github-trigger
-      interceptors: 
+      interceptors:
         - github:
-            eventTypes: 
+            eventTypes:
               - push
-    - bindings:
-        - ref: tutorial-triggerbinding 
+      bindings:
+        - name: tutorial-triggerbinding 
+          ref:  tutorial-triggerbinding
       template:
-        - ref: tutorial-triggertemplate
+        name: tutorial-triggertemplate
