@@ -17,5 +17,9 @@ spec:
       params:
         - name: TERM
           value: "Hello world!"
-        - name: GIT_REPO
-          value: "PLACE HOLDER"
+        - name: GIT_REPO_URL
+          value: "PLACE HOLDER GIT_REPO_URL"
+        - name: GIT_REPO_NAME
+          value: "PLACE HOLDER GIT_REPO_NAME"
+        - name: GIT_REF
+          value: "PLACE HOLDER GIT REVISON"
