@@ -62,4 +62,4 @@ spec:
     - bindings:
         - ref: tutorial-triggerbinding 
       template:
-        ref: tutorial-triggertemplate
+        name: tutorial-triggertemplate
