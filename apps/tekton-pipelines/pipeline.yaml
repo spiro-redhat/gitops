@@ -1,4 +1,4 @@
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: tutorial-pipeline
@@ -7,6 +7,15 @@ metadata:
 spec:
   workspaces:
     - name: pipeline-cache
+  params: 
+    - name: TERM
+      type: string
+    - name: GIT_REPO_URL
+      type: string
+    - name: GIT_REPO_NAME
+      type: string
+    - name: GIT_REF
+      type: string
   tasks:
     - name: echo-something
       taskRef:
@@ -18,8 +27,8 @@ spec:
         - name: TERM
           value: "Hello world!"
         - name: GIT_REPO_URL
-          value: "PLACE HOLDER GIT_REPO_URL"
+          value: $(params.GIT_REPO_URL)
         - name: GIT_REPO_NAME
-          value: "PLACE HOLDER GIT_REPO_NAME"
+          value: $(params.GIT_REPO_NAME)
         - name: GIT_REF
-          value: "PLACE HOLDER GIT REVISON"
+          value: $(params.GIT_REF)

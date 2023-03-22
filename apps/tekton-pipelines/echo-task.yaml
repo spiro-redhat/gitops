@@ -30,5 +30,6 @@ spec:
          echo $(params.TERM) > $(workspaces.cache.path)/README.md
          echo $(params.GIT_REPO_NAME) >> $(workspaces.cache.path)/README.md
          echo $(params.GIT_REPO_URL) >> $(workspaces.cache.path)/README.md
+         echo $(params.GIT_REF) >> $(workspaces.cache.path)/README.md
          cat $(workspaces.cache.path)/README.md
       
