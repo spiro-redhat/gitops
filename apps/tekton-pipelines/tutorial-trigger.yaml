@@ -54,6 +54,7 @@ metadata:
 spec:
   serviceAccountName: tekton-github-triggers
   triggers:
+    - name: github-trigger
       interceptors:
         - github:
             eventTypes:
@@ -62,4 +63,4 @@ spec:
         - name: tutorial-triggerbinding 
           ref:  tutorial-triggerbinding
       template:
-        name: tutorial-triggertemplate
+        ref: tutorial-triggertemplate
