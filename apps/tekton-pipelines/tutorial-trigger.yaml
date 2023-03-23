@@ -67,6 +67,8 @@ spec:
         - github:
             eventTypes:
               - push
+        - cel: 
+            filter: "body.ref == 'refs/heads/main'"
       bindings:
         - ref:  tutorial-triggerbinding
       template:
