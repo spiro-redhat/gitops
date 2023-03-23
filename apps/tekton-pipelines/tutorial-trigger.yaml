@@ -28,6 +28,8 @@ spec:
             value: $(tt.params.git-repo-name)
           - name: GIT_REF
             value: $(tt.params.git-revision) 
+          - name: TERM
+            value: $(tt.params.pusher-name) 
         workspaces: 
           - name: pipeline-cache
             volumeClaimTemplate:
@@ -50,6 +52,8 @@ spec:
       value: $(body.repository.name)
     - name: git-revision
       value: $(body.head_commit.id)
+    - name: pusher-name
+      value: $(body.commits.author.name)
 ---
 apiVersion: triggers.tekton.dev/v1alpha1
 kind: EventListener
