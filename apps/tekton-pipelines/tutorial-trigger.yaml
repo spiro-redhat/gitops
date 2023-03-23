@@ -32,7 +32,7 @@ spec:
           - name: TERM
             value: $(tt.params.pusher-name) 
           - name: COMMIT_MESSAGE
-            value: $(tt.params.commit-message)
+            value: $(tt.params.git-commit-message)
         workspaces: 
           - name: pipeline-cache
             volumeClaimTemplate:
