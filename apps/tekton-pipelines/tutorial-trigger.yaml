@@ -10,6 +10,7 @@ spec:
     - name: git-repo-name
     - name: content-type
     - name: pusher-name
+    
   resourcetemplates: 
     - apiVersion: tekton.dev/v1beta1
       kind: PipelineRun 
@@ -30,6 +31,8 @@ spec:
             value: $(tt.params.git-revision) 
           - name: TERM
             value: $(tt.params.pusher-name) 
+          - name: COMMIT_MESSAGE
+            value: $(tt.params.commit-message)
         workspaces: 
           - name: pipeline-cache
             volumeClaimTemplate:
@@ -54,6 +57,8 @@ spec:
       value: $(body.head_commit.id)
     - name: pusher-name
       value: $(body.pusher.name)
+    - name: git-commit-message
+      value: $(body.commits[0].message)
 ---
 apiVersion: triggers.tekton.dev/v1alpha1
 kind: EventListener

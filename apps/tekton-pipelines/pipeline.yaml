@@ -16,6 +16,8 @@ spec:
       type: string
     - name: GIT_REF
       type: string
+    - name: COMMIT_MESSAGE
+      type: string
   tasks:
     - name: echo-something
       taskRef:
@@ -32,3 +34,5 @@ spec:
           value: $(params.GIT_REPO_NAME)
         - name: GIT_REF
           value: $(params.GIT_REF)
+        - name: COMMIT_MESSAGE
+          value: $(params.COMMIT_MESSAGE)

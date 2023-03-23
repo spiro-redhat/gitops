@@ -16,6 +16,8 @@ spec:
       type: string
     - name: TERM
       type: string
+    - name: COMMIT_MESSAGE
+      type: string
   steps:
     - name: echo
       image: registry.access.redhat.com/ubi9/ubi
@@ -30,5 +32,6 @@ spec:
          echo $(params.GIT_REPO_NAME) >> $(workspaces.cache.path)/README.md
          echo $(params.GIT_REPO_URL) >> $(workspaces.cache.path)/README.md
          echo $(params.GIT_REF) >> $(workspaces.cache.path)/README.md
+         echo $(params.COMMIT_MESSAGE) >> $(workspaces.cache.path)/README.md
          cat $(workspaces.cache.path)/README.md
       
