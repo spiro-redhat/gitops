@@ -16,14 +16,13 @@ spec:
       type: string
     - name: TERM
       type: string
-      description: The term to echo
   steps:
     - name: echo
       image: registry.access.redhat.com/ubi9/ubi
       command:
         - echo
       args:
-        - $(inputs.params.TERM)
+        - $(params.TERM)
     - name: redirect
       image: registry.access.redhat.com/ubi9/ubi
       script: |
