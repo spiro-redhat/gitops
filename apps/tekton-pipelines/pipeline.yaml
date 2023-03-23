@@ -25,7 +25,7 @@ spec:
           workspace: pipeline-cache
       params:
         - name: TERM
-          value: "Hello world!"
+          value: $(params.TERM)
         - name: GIT_REPO_URL
           value: $(params.GIT_REPO_URL)
         - name: GIT_REPO_NAME

@@ -53,7 +53,7 @@ spec:
     - name: git-revision
       value: $(body.head_commit.id)
     - name: pusher-name
-      value: $(body.commits.author.name)
+      value: $(body.pusher.name)
 ---
 apiVersion: triggers.tekton.dev/v1alpha1
 kind: EventListener
