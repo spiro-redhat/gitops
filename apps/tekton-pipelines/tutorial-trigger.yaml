@@ -65,6 +65,9 @@ spec:
     - name: github-trigger
       interceptors:
         - github:
+            #secretRef: 
+            #  secretName: github-trigger-secret
+            #  secretKey: secret-token
             eventTypes:
               - push
         - cel: 
