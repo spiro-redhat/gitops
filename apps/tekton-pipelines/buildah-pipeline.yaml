@@ -1,0 +1,62 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: tutorial-pipeline
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+spec:
+  workspaces:
+    - name: pipeline-cache
+  params: 
+    - name: GIT_REPO 
+      type: string 
+    - name: GIT_REVISION 
+      type: string 
+    - name: SUB_DIRECTORY 
+      type: string 
+    - name: GIT_TLS_VERIFY 
+      type: string      
+    - name: NEW_IMAGE
+      type: string
+    - name: BUILDAH_TLS_VERIFY
+      type: string
+    - name: PUSH_EXTRA_ARGS
+      type: string
+    - name: BUILD_EXTRA_ARGS
+      type: string
+    - name: SKIP_PUSH
+      type: string
+  tasks:
+    - name: clone-repo 
+      taskRef:
+        name: git-clone 
+        kind: ClusterTask
+      workspaces:
+        - name: output 
+          workspace: pipeline-cache
+      params: 
+        - name: sslVerify
+          value: $(params.GIT_TLS_VERIFY)
+        - name: url 
+          value: $(params.GIT_REPO) 
+        - name: revision 
+          value: $(params.GIT_REVISION)
+    - name: build-image
+      taskRef:
+        name: buildah
+        kind: ClusterTask
+      workspaces:
+        - name: source
+          workspace: pipeline-cache
+      params:
+        - name: IMAGE
+          value: $(params.NEW_IMAGE)
+        - name: TLS_VERIFY
+          value: $(params.BUILDAH_TLS_VERIFY)
+        - name: PUSH_EXTRA_ARGS
+          value: $(params.PUSH_EXTRA_ARGS)
+        - name: BUILD_EXTRA_ARGS
+          value: $(params.BUILD_EXTRA_ARGS)
+        - name: SKIP_PUSH
+          value: $(params.SKIP_PUSH)
+    
