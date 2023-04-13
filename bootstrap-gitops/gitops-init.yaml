@@ -49,6 +49,10 @@ spec:
       policies:
         - p, proj:my-project:project-admins, applications, sync, my-project/*, allow
         - p, proj:my-project:project-admins, applications, delete, my-project/*, allow 
+        - p, proj:my-project:project-admins, repositories, get, my-project/*, allow
+        - p, proj:my-project:project-admins, repositories, create, my-project/*, allow
+        - p, proj:my-project:project-admins, repositories, update, my-project/*, allow
+        - p, proj:my-project:project-admins, repositories, delete, my-project/*, allow
       groups:
         - argo-admins
   #roles:
