@@ -1,16 +1,38 @@
 apiVersion: console.openshift.io/v1
 kind: ConsoleLink
 metadata:
-  name: application-menu-rh-developer-blog
+  name: application-menu-gitops-cookbook 
 spec:
-  href: 'https://en.wikipedia.org/wiki/Saltire'
+  href: 'https://developers.redhat.com/e-books/gitops-cookbook'
   location: ApplicationMenu
-  text: Red Hat Developer Blog - Kubernetes
+  text: GitOps Cook Book
   applicationMenu:
-    section: The Saltire
-    imageURL: https://redhat-public.s3.eu-west-2.amazonaws.com/flag24.png
-    
+    section: My Links 
+    imageURL: https://developers.redhat.com/sites/default/files/styles/cheat_sheet_feature/public/gitops-cookbook-ebook-cover.png
+--- 
+apiVersion: console.openshift.io/v1
+kind: ConsoleLink
+metadata:
+  name: application-menu-getting-gitops 
+spec:
+  href: 'https://developers.redhat.com/e-books/getting-gitops-practical-platform-openshift-argo-cd-and-tekton'
+  location: ApplicationMenu
+  text: Getting GitOps
+  applicationMenu:
+    section: My Links 
+    imageURL: https://developers.redhat.com/sites/default/files/styles/cheat_sheet_feature/public/GettingGitOps-book-cover.png
+---
+apiVersion: console.openshift.io/v1
+kind: ConsoleLink
+metadata:
+  name: application-menu-pathto-gitops 
+spec:
+  href: 'https://developers.redhat.com/e-books/path-gitops'
+  location: ApplicationMenu
+  text: Path to GitOps
+  applicationMenu:
+    section: My Links 
+    imageURL: https://developers.redhat.com/sites/default/files/styles/cheat_sheet_feature/public/2022_RHD_PathtoGitOps_EBook_8.5x11.png
 
-#  https://en.wikipedia.org/wiki/Saltire
-#  https://redhat-public.s3.eu-west-2.amazonaws.com/flag24.png
-#  https://i.ibb.co/pZ0Lxdb/Logo-Red-Hat-Hat-Color-RGB.png
+
+
