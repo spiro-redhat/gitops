@@ -1,0 +1,1 @@
+oc patch installplan install-4k2q8 \ --type merge --patch '{"spec":{"approved":true}}'
